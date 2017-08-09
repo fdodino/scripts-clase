@@ -325,8 +325,10 @@ Podemos probar quiénes llevan a un pasajero para un viaje, pensando en un conju
 
 Un conjunto se define
 
+```scala
 const conjunto = #{2, 7, 4}
 const choferes = #{alejandro, daniel, luciana}
+```
 
 ¿Por qué conjunto y no lista? Porque no me interesa tenerlos ordenados.
 
