@@ -36,7 +36,8 @@ object alejandro {
 }
 
 object luciana {
-    var edad = 37
+        var edad = 37
+	
 	method llevaA(pasajero) = 
 		self.diferenciaDeEdadCon(pasajero) < 5
 
