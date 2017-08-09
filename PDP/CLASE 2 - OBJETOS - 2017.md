@@ -1,6 +1,9 @@
 # Clase 2 Objetos
 
-Repasamos
+por Fernando Dodino - Agosto 2017
+Distribuido con licencia [Creative commons Share-a-like](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
+
+## Repaso
 
 - objeto
 - mensaje vs. método
@@ -136,13 +139,11 @@ object daniel {
 }
 ```
 
-Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso global es malo.
+Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso global es **malo**.
 
 Como consejo
 
-+=============================================================+
-| HAY QUE EVITAR TENER REFERENCIAS A WKO DENTRO DE OTRO WKO   |
-+=============================================================+
+> Hay que evitar tener referencias a wko dentro de otro wko
 
 Escapan de esta situación los programas y los tests.
 
@@ -293,18 +294,79 @@ method crearPasajero(edadQueTiene, edadParaSerViejo) =
 		method esJoven() = self.edad() < edadParaSerViejo
 	}
 
+method crearAdriel() = self.crearPasajero(35, 40)
+method crearJuana() = self.crearPasajero(21, 20)
+
 test "Saber si Daniel lleva a Juana" {
-    const juana = self.crearPasajero()
+    const juana = self.crearJuana()
 	assert.that(daniel.llevaA(juana))	
 }
 
 test "Saber si Alejandro lleva a Juana" {
+    const juana = self.crearJuana()
 	assert.that(alejandro.llevaA(juana))	
 }
 
 test "Saber si Alejandro lleva a Adriel" {
-	assert.that(alejandro.llevaA(juana))	
+    const adriel = self.crearAdriel()
+	assert.that(alejandro.llevaA(adriel))	
 }
 
 ```
+
+Fíjense que para preguntar si un pasajero es joven
+
+- antes usábamos la referencia edad (lo que se llama *acceso directo*)
+- ahora usamos el accessor edad() (lo que se llama *acceso indirecto*)
+
+## BONUS: Testeo con colecciones
+
+Podemos probar quiénes llevan a un pasajero para un viaje, pensando en un conjunto de choferes.
+
+Un conjunto se define
+
+const conjunto = #{2, 7, 4}
+const choferes = #{alejandro, daniel, luciana}
+
+¿Por qué conjunto y no lista? Porque no me interesa tenerlos ordenados.
+
+Entonces nuestro test podría ser que a Juana la llevan Daniel y Alejandro, pero no Luciana.
+
+Entonces, si tuviéramos un conjunto de choferes, y filramos aquellos que llevan a Juana, nos quedaría el conjunto #{daniel, alejandro} (o Alejandro y Daniel, la comparación será indistinta).
+
+Aquí necesitaremos:
+
+- crear a Juana en alguna de las variantes que hemos visto
+- definir el conjunto de choferes
+- enviar el mensaje filter al conjunto, para saber qué choferes llevan a Juana
+- utilizar el mensaje equals() para el wko assert
+
+```scala
+import pasajeros.*
+import taxistas.*
+
+method crearPasajero(edadQueTiene, edadParaSerViejo) = 
+	object {
+		method edad() = edadQueTiene
+		method esJoven() = self.edad() < edadParaSerViejo
+	}
+
+method crearAdriel() = self.crearPasajero(35, 40)
+method crearJuana() = self.crearPasajero(21, 20)
+
+test "Saber qué choferes llevan a Juana" {
+    const juana = self.crearJuana()
+    const choferes = #{daniel, alejandro, luciana}
+    const choferesQueLlevanAJuana = choferes.filter { chofer => chofer.llevaA(juana) }
+	assert.equals(#{daniel, alejandro}, choferesQueLlevanAJuana)
+}
+```
+
+Fíjense cómo estamos enviando el mismo mensaje a cada uno de los choferes. Cada uno responde con su comportamiento específico, de eso se trata el **polimorfismo**. No significa que sean iguales, de hecho no lo son, y ciertamente pueden tener interfaces diferentes (uno puede tener más métodos que otro por ejemplo). Pero en el contexto del filter, yo puedo enviar mensajes sin importarme si hablo cn Daniel, con Alejandro o con Luciana.
+
+
+¿Y si quiero reutilizar la lista de choferes?
+
+- Definen un método y lo usan en cada test
+- Usan un *describe*, que veremos más adelante.
 
