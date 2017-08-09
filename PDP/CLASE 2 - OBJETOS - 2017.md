@@ -225,7 +225,7 @@ test "Saber si Daniel lleva a Juana" {
 }
 ```
 
-Claro, ¡estamos sobresimplificando! No parece que está bueno eso, porque ahora creamos una abstracción que perdió las reglas de negocio. Ojo con eso en el TP, pero sobre todo ojo con eso en los trabajos...
+Claro, ¡estamos sobresimplificando! No parece que esté bueno eso, porque ahora creamos una abstracción que perdió las reglas de negocio. Ojo con eso en el TP, pero sobre todo ojo con eso en los trabajos...
 
 La segunda variante es embeber la definición de Juana en el test:
 
