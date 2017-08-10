@@ -95,7 +95,7 @@ Lo anotamos en nuestra máquina de escribir invisible.
 
 Tampoco estamos seguros de probar todas las variantes.
 
-- Creamos un programa. Existen en Wollok, pero para ver que funciona ok tengo que escribir muchos println, requiere esfuerzo de programación pero cada vez que corremos el programa tenemos que ver la salida por la consola.
+- Creamos un programa. Existen en Wollok, pero para ver que funciona ok tengo que escribir muchos println, requiere esfuerzo de programación y cada vez que corremos el programa tenemos que ver la salida por la consola.
 
 - Vamos a crear tests unitarios, de la misma manera que lo vinimos haciendo anteriormente.
 
