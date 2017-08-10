@@ -202,7 +202,7 @@ Recordemos estas definiciones
 
 ```javascript
 object adriel {
-    var edad = 35
+	var edad = 35
 	method edad() = edad
 	method esJoven() = edad < 40
 }
@@ -222,11 +222,11 @@ test "Saber si Daniel lleva a Juana" {
 }
 ```
 
-Podemos evitar la creación del wko Juana y reemplazarlo por un objeto anónimo. Al igual que en las funciones anónimas de Haskell, los objetos anónimos no pueden ser utilizados en otro contexto (ya que no tienen nombre), aunque sí tenemos la posibilidad de guardarla en una referencia, pasarla como parámetro, etc.
+Podemos evitar la creación del wko Juana y reemplazarlo por un objeto anónimo. Al igual que en las funciones anónimas de Haskell, los objetos anónimos no pueden ser utilizadas como referencias globales (ya que no tienen nombre), aunque sí tenemos la posibilidad de guardarla en una referencia, pasarla como parámetro, etc.
 
 ```javascript
 test "Saber si Daniel lleva a Juana" {
-    // Borramos 
+	// Borramos 
 	const juana = object {
 		method edad() = 21
 		method esJoven() = false
