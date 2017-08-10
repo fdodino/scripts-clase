@@ -380,9 +380,9 @@ describe "Tests de taxistas" {
 
 	// luego los tests
 	test "Saber qué choferes llevan a Juana" {
-	    const juana = self.crearJuana()
-	    const choferes = #{daniel, alejandro, luciana}
-	    const choferesQueLlevanAJuana = choferes.filter { chofer => chofer.llevaA(juana) }
+		const juana = self.crearJuana()
+		const choferes = #{daniel, alejandro, luciana}
+		const choferesQueLlevanAJuana = choferes.filter { chofer => chofer.llevaA(juana) }
 		assert.equals(#{daniel, alejandro}, choferesQueLlevanAJuana)
 	}
 }
