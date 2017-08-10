@@ -26,7 +26,7 @@ Presentamos a los choferes y la forma en que deciden subir o no un pasajero
 
 ## Cómo lo implementamos
 
-```scala
+```javascript
 object daniel {
 	method llevaA(pasajero) = !pasajero.esJoven()
 }
@@ -36,7 +36,7 @@ object alejandro {
 }
 
 object luciana {
-        var edad = 37
+	var edad = 37
 	
 	method llevaA(pasajero) = 
 		self.diferenciaDeEdadCon(pasajero) < 5
