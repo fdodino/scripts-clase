@@ -53,6 +53,9 @@ Sí, los tres objetos en algún contexto son polimórficos, pero si un árbol se
 
 ¿Qué sabemos de pasajero?
 
+- sabe decirnos si es joven o no, un booleano
+- sabe decirnos su edad, un número
+
 Vamos a meterle algo más de picante.
 
 ## Pasajeros
@@ -63,7 +66,7 @@ Vamos a meterle algo más de picante.
 
 Los implementamos:
 
-```scala
+```javascript
 object susana {
 	method edad() = 0
 	method esJoven() = true
@@ -116,7 +119,7 @@ import pasajeros.*
 
 Podemos hacerlo individualmente
 
-```scala
+```javascript
 import taxistas.daniel
 import taxistas.alejandro
 ...
@@ -126,7 +129,7 @@ Pero es más rápido con la versión que tiene asteriscos. Si encuentran algún 
 
 Ahora sí, escribimos el primer test, dentro de un contenedor que se llama describe y que necesita una descripción de la agrupación de tests que vamos a crear:
 
-```scala
+```javascript
 
 describe "Tests de taxistas" {
 	
@@ -155,7 +158,7 @@ Escapan de esta situación los programas y los tests.
 
 Volvemos sobre el test (siempre dentro del *describe*)
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Susana" {
 	assert.notThat(daniel.llevaA(susana))
 }
@@ -165,7 +168,7 @@ test "Saber si Daniel lleva a Susana" {
 
 2. El wko assert forma parte de lo que trae Wollok, y permite evitar esto:
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Susana" {
 	if (!daniel.llevaA(susana)) {
 		console.println("Todo bien!")
@@ -177,7 +180,7 @@ test "Saber si Daniel lleva a Susana" {
 
 Que de hecho no es lo que uno haría, sino algo más interesante como:
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Susana" {
 	if (daniel.llevaA(susana)) {
 		self.error("El test 'Saber si Daniel lleva a Susana' falló")
@@ -195,7 +198,7 @@ El objeto assert permite que luego de correr los tests aparezca un semáforo
 
 Recordemos estas definiciones
 
-```scala
+```javascript
 object adriel {
     var edad = 35
 	method edad() = edad
@@ -211,7 +214,7 @@ object juana {
 
 Si yo solo quiero usar a adriel y a juana en el contexto de los tests, por ejemplo para probar que Daniel lleva a Juana:
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Juana" {
 	assert.that(daniel.llevaA(juana))	
 }
@@ -219,7 +222,7 @@ test "Saber si Daniel lleva a Juana" {
 
 Podemos evitar la creación del wko Juana y reemplazarlo por un objeto anónimo. Al igual que en las funciones anónimas de Haskell, los objetos anónimos no pueden ser utilizados en otro contexto (ya que no tienen nombre), aunque sí tenemos la posibilidad de guardarla en una referencia, pasarla como parámetro, etc.
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Juana" {
     // Borramos 
 	const juana = object {
@@ -234,7 +237,7 @@ Claro, ¡estamos sobresimplificando! No parece que esté bueno eso, porque ahora
 
 La segunda variante es embeber la definición de Juana en el test:
 
-```scala
+```javascript
 test "Saber si Daniel lleva a Juana" {
     // Borramos 
 	const juana = object {
@@ -248,7 +251,7 @@ test "Saber si Daniel lleva a Juana" {
 
 Y fíjense que hay polimorfismo entre wko y objetos anónimos, mientras compartan una interfaz común. El problema es que ahora así no puedo aprovechar la definición de Juana en el siguiente test:
 
-```scala
+```javascript
 test "Saber si Alejandro lleva a Juana" {
     // Borramos el wko juana y creamos a Juana acá
 	const juana = object {
@@ -262,7 +265,7 @@ test "Saber si Alejandro lleva a Juana" {
 
 ¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test hacemos
 
-```scala
+```javascript
 import pasajeros.*
 import taxistas.*
 
@@ -291,7 +294,7 @@ Eso nos permite crear cualquier tipo de pasajero, por ejemplo
 - a Juana
 - y a Adriel
 
-```scala
+```javascript
 import pasajeros.*
 import taxistas.*
 
@@ -337,7 +340,7 @@ Podemos probar quiénes llevan a un pasajero para un viaje, pensando en un conju
 
 Un conjunto se define
 
-```scala
+```javascript
 const conjunto = #{2, 7, 4}
 const choferes = #{alejandro, daniel, luciana}
 ```
@@ -355,7 +358,7 @@ Aquí necesitaremos:
 - enviar el mensaje filter al conjunto, para saber qué choferes llevan a Juana
 - utilizar el mensaje equals() para el wko assert
 
-```scala
+```javascript
 import pasajeros.*
 import taxistas.*
 
