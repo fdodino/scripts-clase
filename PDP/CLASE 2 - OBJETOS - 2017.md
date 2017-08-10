@@ -150,7 +150,7 @@ object daniel {
 }
 ```
 
-Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso global es **malo**, como el colesterol malo.
+Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso **global es malo**, como el colesterol malo.
 
 Como consejo
 
@@ -166,7 +166,7 @@ test "Saber si Daniel lleva a Susana" {
 }
 ```
 
-1. El test tiene una descripción, encerrada entre comillas para poder ser lo más expresivo posible. Yo por lo general prefiero no escribir "Daniel lleva a Susana", porque si con nuevas definiciones de negocio Daniel deja de llevar a Susana, son dos lugares donde hay que cambiar. Hay una duplicación menos evidente, pero duplicación al fin. Entonces yo escribo qué es lo que estamos probando, sin entrar en detalles en cómo (de hecho el test no debería saber cómo se implementa, simplemente debe DELEGAR a los objetos)
+1. El test tiene una descripción, encerrada entre comillas para poder ser lo más expresivo posible. Yo por lo general prefiero no escribir "Daniel no lleva a Susana", porque si con nuevas definiciones de negocio Daniel acepta llevar a Susana, son dos lugares donde hay que cambiar. Hay una duplicación de ideas menos evidente, pero duplicación al fin. Entonces yo escribo qué es lo que estamos probando, sin entrar en detalles en cómo (de hecho el test no debería saber cómo se implementa, simplemente debe DELEGAR a los objetos)
 
 2. El wko assert forma parte de lo que trae Wollok, y permite evitar esto:
 
