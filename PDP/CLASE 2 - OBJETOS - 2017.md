@@ -18,7 +18,7 @@ Conceptos a ver
 - Referencias
 - Intro a testing
 
-Los choferes son
+Presentamos a los choferes y la forma en que deciden subir o no un pasajero
 
 - Daniel lleva a todos los que no sean jóvenes
 - Alejandro lleva a todos
@@ -46,7 +46,7 @@ object luciana {
 }
 ```
 
-El = en los métodos refuerza los métodos que son preguntas vs. los que son acciones (que pueden tener cuerpo entre llaves, ojo que hay métodos de más de una línea que necesitan las llaves y el return)
+El = en los métodos refuerza los métodos que son preguntas (llevan el =) vs. los que son acciones (que pueden tener cuerpo entre llaves, ojo que hay métodos de más de una línea que son preguntas pero necesitan las llaves y el return)
 
 ¿Hay polimorfismo?
 Sí, los tres objetos en algún contexto son polimórficos, pero si un árbol se cae y nadie lo oye... ¿verdaderamente es polimórfico? O algo así...
