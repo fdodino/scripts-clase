@@ -265,6 +265,9 @@ test "Saber si Alejandro lleva a Juana" {
 
 ¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test escribimos los métodos que deben estar **ANTES DE LOS TESTS, para que el archivo .wtest compile**.
 
+HASTA ACA
+
+
 ```javascript
 import pasajeros.*
 import taxistas.*
