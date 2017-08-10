@@ -224,9 +224,10 @@ test "Saber si Daniel lleva a Juana" {
 
 Podemos evitar la creación del wko Juana y reemplazarlo por un objeto anónimo. Al igual que en las funciones anónimas de Haskell, los objetos anónimos no pueden ser utilizadas como referencias globales (ya que no tienen nombre), aunque sí tenemos la posibilidad de guardarla en una referencia, pasarla como parámetro, etc.
 
+Borramos al wko juana, y reescribimos el test que valida si Daniel lleva a Juana:
+
 ```javascript
 test "Saber si Daniel lleva a Juana" {
-	// Borramos el wko juana y creamos a Juana acá
 	const juana = object {
 		method edad() = 21
 		method esJoven() = false
@@ -264,9 +265,6 @@ test "Saber si Alejandro lleva a Juana" {
 ```
 
 ¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test escribimos los métodos que deben estar **ANTES DE LOS TESTS, para que el archivo .wtest compile**.
-
-HASTA ACA
-
 
 ```javascript
 import pasajeros.*
