@@ -398,3 +398,6 @@ Fíjense cómo estamos enviando el mismo mensaje a cada uno de los choferes. Cad
 - Definen un método y lo usan en cada test
 - Usan un *describe* con *fixture*, que veremos más adelante.
 
+# Proyecto que acompaña la clase
+
+Lo pueden descargar en https://github.com/wollok/taxistasStubs
