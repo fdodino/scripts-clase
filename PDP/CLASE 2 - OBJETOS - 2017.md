@@ -226,7 +226,7 @@ Podemos evitar la creación del wko Juana y reemplazarlo por un objeto anónimo.
 
 ```javascript
 test "Saber si Daniel lleva a Juana" {
-	// Borramos 
+	// Borramos el wko juana y creamos a Juana acá
 	const juana = object {
 		method edad() = 21
 		method esJoven() = false
@@ -241,7 +241,6 @@ La segunda variante es embeber la definición de Juana en el test:
 
 ```javascript
 test "Saber si Daniel lleva a Juana" {
-    // Borramos 
 	const juana = object {
 		var edad = 21
 		method edad() = edad
@@ -255,7 +254,6 @@ Y fíjense que hay polimorfismo entre wko y objetos anónimos, mientras comparta
 
 ```javascript
 test "Saber si Alejandro lleva a Juana" {
-    // Borramos el wko juana y creamos a Juana acá
 	const juana = object {
 		var edad = 21
 		method edad() = edad
@@ -265,28 +263,31 @@ test "Saber si Alejandro lleva a Juana" {
 }
 ```
 
-¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test hacemos
+¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test escribimos los métodos que deben estar **ANTES DE LOS TESTS, para que el archivo .wtest compile**.
 
 ```javascript
 import pasajeros.*
 import taxistas.*
 
+describe "Tests de taxistas" {
 
-method crearJuana() = 
-	object {
-		var edad = 21
-		method edad() = edad
-		method esJoven() = edad < 20
+	method crearJuana() = 
+		object {
+			var edad = 21
+			method edad() = edad
+			method esJoven() = edad < 20
+		}
+
+	test "Saber si Daniel lleva a Juana" {
+    		const juana = self.crearJuana()
+		assert.that(daniel.llevaA(juana))	
 	}
 
-test "Saber si Daniel lleva a Juana" {
-    const juana = self.crearJuana()
-	assert.that(daniel.llevaA(juana))	
-}
+	test "Saber si Alejandro lleva a Juana" {
+		const juana = self.crearJuana()
+		assert.that(alejandro.llevaA(juana))	
+	}
 
-test "Saber si Alejandro lleva a Juana" {
-	const juana = self.crearJuana()
-	assert.that(alejandro.llevaA(juana))	
 }
 ```
 
