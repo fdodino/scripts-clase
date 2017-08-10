@@ -124,11 +124,16 @@ import taxistas.alejandro
 
 Pero es más rápido con la versión que tiene asteriscos. Si encuentran algún problema de performance nos avisan, internamente hacen cosas distintas.
 
-Ahora sí, escribimos el primer test:
+Ahora sí, escribimos el primer test, dentro de un contenedor que se llama describe y que necesita una descripción de la agrupación de tests que vamos a crear:
 
 ```scala
-test "Saber si Daniel lleva a Susana" {
-	assert.notThat(daniel.llevaA(susana))
+
+describe "Tests de taxistas" {
+	
+	test "Saber si Daniel lleva a Susana" {
+		assert.notThat(daniel.llevaA(susana))
+	}
+
 }
 ```
 
@@ -148,7 +153,7 @@ Como consejo
 
 Escapan de esta situación los programas y los tests.
 
-Volvemos sobre el test
+Volvemos sobre el test (siempre dentro del *describe*)
 
 ```scala
 test "Saber si Daniel lleva a Susana" {
@@ -261,6 +266,7 @@ test "Saber si Alejandro lleva a Juana" {
 import pasajeros.*
 import taxistas.*
 
+
 method crearJuana() = 
 	object {
 		var edad = 21
@@ -289,30 +295,35 @@ Eso nos permite crear cualquier tipo de pasajero, por ejemplo
 import pasajeros.*
 import taxistas.*
 
-method crearPasajero(edadQueTiene, edadParaSerViejo) = 
-	object {
-		method edad() = edadQueTiene
-		method esJoven() = self.edad() < edadParaSerViejo
+describe "Tests de taxistas" {
+
+	// primero van los métodos
+	method crearPasajero(edadQueTiene, edadParaSerViejo) = 
+		object {
+			method edad() = edadQueTiene
+			method esJoven() = self.edad() < edadParaSerViejo
+		}
+
+	method crearAdriel() = self.crearPasajero(35, 40)
+	method crearJuana() = self.crearPasajero(21, 20)
+
+	// luego los tests
+	test "Saber si Daniel lleva a Juana" {
+	    const juana = self.crearJuana()
+		assert.that(daniel.llevaA(juana))	
 	}
 
-method crearAdriel() = self.crearPasajero(35, 40)
-method crearJuana() = self.crearPasajero(21, 20)
+	test "Saber si Alejandro lleva a Juana" {
+	    const juana = self.crearJuana()
+		assert.that(alejandro.llevaA(juana))	
+	}
 
-test "Saber si Daniel lleva a Juana" {
-    const juana = self.crearJuana()
-	assert.that(daniel.llevaA(juana))	
+	test "Saber si Alejandro lleva a Adriel" {
+	    const adriel = self.crearAdriel()
+		assert.that(alejandro.llevaA(adriel))	
+	}
+
 }
-
-test "Saber si Alejandro lleva a Juana" {
-    const juana = self.crearJuana()
-	assert.that(alejandro.llevaA(juana))	
-}
-
-test "Saber si Alejandro lleva a Adriel" {
-    const adriel = self.crearAdriel()
-	assert.that(alejandro.llevaA(adriel))	
-}
-
 ```
 
 Fíjense que para preguntar si un pasajero es joven
@@ -348,20 +359,25 @@ Aquí necesitaremos:
 import pasajeros.*
 import taxistas.*
 
-method crearPasajero(edadQueTiene, edadParaSerViejo) = 
-	object {
-		method edad() = edadQueTiene
-		method esJoven() = self.edad() < edadParaSerViejo
+describe "Tests de taxistas" {
+
+	// primero van los métodos
+	method crearPasajero(edadQueTiene, edadParaSerViejo) = 
+		object {
+			method edad() = edadQueTiene
+			method esJoven() = self.edad() < edadParaSerViejo
+		}
+
+	method crearAdriel() = self.crearPasajero(35, 40)
+	method crearJuana() = self.crearPasajero(21, 20)
+
+	// luego los tests
+	test "Saber qué choferes llevan a Juana" {
+	    const juana = self.crearJuana()
+	    const choferes = #{daniel, alejandro, luciana}
+	    const choferesQueLlevanAJuana = choferes.filter { chofer => chofer.llevaA(juana) }
+		assert.equals(#{daniel, alejandro}, choferesQueLlevanAJuana)
 	}
-
-method crearAdriel() = self.crearPasajero(35, 40)
-method crearJuana() = self.crearPasajero(21, 20)
-
-test "Saber qué choferes llevan a Juana" {
-    const juana = self.crearJuana()
-    const choferes = #{daniel, alejandro, luciana}
-    const choferesQueLlevanAJuana = choferes.filter { chofer => chofer.llevaA(juana) }
-	assert.equals(#{daniel, alejandro}, choferesQueLlevanAJuana)
 }
 ```
 
@@ -371,5 +387,5 @@ Fíjense cómo estamos enviando el mismo mensaje a cada uno de los choferes. Cad
 ¿Y si quiero reutilizar la lista de choferes?
 
 - Definen un método y lo usan en cada test
-- Usan un *describe*, que veremos más adelante.
+- Usan un *describe* con *fixture*, que veremos más adelante.
 
