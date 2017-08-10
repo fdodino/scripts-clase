@@ -73,7 +73,7 @@ object susana {
 }
 
 object adriel {
-    var edad = 35
+	var edad = 35
 	method edad() = edad
 	method esJoven() = edad < 40
 }
