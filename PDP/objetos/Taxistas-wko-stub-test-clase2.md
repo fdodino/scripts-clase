@@ -236,6 +236,8 @@ test "Saber si Daniel lleva a Juana" {
 }
 ```
 
+> Si les tira un warning "Unused variable" en juana, hay que borrar la línea del import pasajeros.*, grabar, volverla a traer (Ctrl + Z) y grabar nuevamente. Ya tenemos un [issue reportado](https://github.com/uqbar-project/wollok/issues/1204)
+
 Claro, ¡estamos sobresimplificando! No parece que esté bueno eso, porque ahora creamos una abstracción que perdió las reglas de negocio. Ojo con eso en el TP, pero sobre todo ojo con eso en los trabajos...
 
 La segunda variante es embeber la definición de Juana en el test:
@@ -264,7 +266,7 @@ test "Saber si Alejandro lleva a Juana" {
 }
 ```
 
-¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test escribimos los métodos que deben estar **ANTES DE LOS TESTS, para que el archivo .wtest compile**.
+¡Malísimo! No queremos eso. Lo que nos vendría bien es pensar una abstracción que cree un objeto anónimo... bueno, eso ya existe, se llama método. En el archivo de test escribimos los métodos que deben estar **ANTES DE LOS TESTS, para que compile el archivo .wtest**.
 
 ```javascript
 import pasajeros.*
