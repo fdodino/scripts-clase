@@ -107,9 +107,11 @@ Sobre el proyecto creamos un archivo "taxis.wtest".
 - Que Luciana lleva a Adriel (tiene diferencia menor a 5 años) pero no a Susana ni a Juana.
 
 ¿Cómo lo podemos probar?
-Vamos a arrancar con algo simple. El primer test dice que Daniel lleva a Susana. Para eso, si tenemos dos archivos wlk
+Vamos a arrancar con algo simple. El primer test consiste en probar que **Daniel no lleva a Susana**. Para eso, si tenemos dos archivos wlk
+
 - taxistas.wlk
 - pasajeros.wlk
+
 Deben relacionarse con los tests a través del mecanismo de imports:
 
 ```scala
@@ -125,7 +127,7 @@ import taxistas.alejandro
 ...
 ```
 
-Pero es más rápido con la versión que tiene asteriscos. Si encuentran algún problema de performance nos avisan, internamente hacen cosas distintas.
+Pero es más rápido con la versión que tiene asteriscos. Si encuentran algún problema de performance nos avisan y cargamos un isse, internamente hacen cosas distintas.
 
 Ahora sí, escribimos el primer test, dentro de un contenedor que se llama describe y que necesita una descripción de la agrupación de tests que vamos a crear:
 
@@ -140,7 +142,7 @@ describe "Tests de taxistas" {
 }
 ```
 
-Fíjense que como daniel y susana son wko, no necesitamos hacer nada más que usarlos en el contexto de un test. En este caso global es bueno. Por otra parte estuvo bueno no hacer en daniel:
+Fíjense que como daniel y susana son wko, no necesitamos hacer nada más que usarlos en el contexto de un test. En este caso **global es bueno** como el colesterol bueno. Por otra parte estuvo bueno no hacer en daniel:
 
 ```scala
 object daniel {
@@ -148,7 +150,7 @@ object daniel {
 }
 ```
 
-Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso global es **malo**.
+Porque si bien eso compila, no permite preguntar si Daniel lleva a otro pasajero. En ese caso global es **malo**, como el colesterol malo.
 
 Como consejo
 
