@@ -20,7 +20,7 @@ Conceptos a ver
 
 Presentamos a los choferes y la forma en que deciden subir o no un pasajero
 
-- Daniel lleva a todos los que no sean jóvenes
+- Daniel lleva a todos los que no sean jóvenes (cada pasajero se autodefine como joven o no-joven)
 - Alejandro lleva a todos
 - Luciana tiene 37, y lleva a un pasajero si tiene una diferencia de menos de 5 años con ese pasajero
 
