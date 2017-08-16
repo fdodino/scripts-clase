@@ -346,7 +346,7 @@ Daniel nos encargó una serie de requerimientos que debemos incorporar:
 
 ## Registrar viajes
 
-Daniel nos pidió que registremos todos los viajes que hizo, donde sepa
+Queremos registrar todos los viajes que hizo, donde sepa
 
 - a qué localidad fue
 - los kilómetros recorridos
@@ -365,10 +365,7 @@ object daniel {
 Queremos saber las localidades visitadas por Daniel, en base a los viajes que hizo. No debe haber repetidos.
 
 ```xtend
-object daniel {
-	method localidadesVisitadas() =
-		viajes.map { viaje => viaje.localidad() }.asSet()
-}
+method localidadesVisitadas() =	viajes.map { viaje => viaje.localidad() }.asSet()
 ```
 
 ## Kilómetros recorridos
@@ -376,14 +373,9 @@ object daniel {
 Queremos saber el total de kilómetros recorridos por Daniel en base a sus viajes.
 
 ```xtend
-object daniel {
-	method kilometrosRecorridos() =
-		viajes.sum { viaje => viaje.kilometros() }
+method kilometrosRecorridos() =	viajes.sum { viaje => viaje.kilometros() }
 
-	method kilometrosRecorridos2() =
-		viajes.fold(0, { acum, viaje => acum + viaje.kilometros() })
-
-}
+method kilometrosRecorridos2() = viajes.fold(0, { acum, viaje => acum + viaje.kilometros() })
 ```
 
 ## Saber si llevó a una persona
@@ -391,10 +383,7 @@ object daniel {
 Queremos saber si Daniel llevó a un pasajero.
 
 ```xtend
-object daniel {
-	method llevo(pasajero) =
-		viajes.any { viaje => viaje.pasajeros().contains(pasajero) }
-}		
+method llevo(pasajero) = viajes.any { viaje => viaje.pasajeros().contains(pasajero) }
 ```
 
 ## Saber qué viajes largos hizo
@@ -402,8 +391,8 @@ object daniel {
 Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel que lleva 20 kilómetros.
 
 ```xtend
-object daniel {
-	method llevo(pasajero) =
-		viajes.filter { viaje => viaje.esLargo() }
-}
+method llevo(pasajero) = viajes.filter { viaje => viaje.esLargo() }
 ```
+
+Nótese cómo delegamos en viaje la responsabilidad. Eso... lo dejamos para más adelante, porque ahí es donde tener varios objetos viaje no termina de cerrar, porque todos parecen comportarse igual.
+
