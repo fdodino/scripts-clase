@@ -121,6 +121,16 @@ pepita show
 
 El archivo pepita.ik tiene la definición de pepita y luego el script que prueba cómo come y vuela.
 
+Lo evaluamos en la consola
+
+```bash
+fernando@fernando-laptop ~/apps/ioke/bin $ ./ioke pepita.ik
+Pepita energia: $0.0
+Pepita come 10 gramos
+Pepita vuela 3 kilometros
+Pepita energia: $27.0
+```
+
 ## Otras apariciones de object
 
 En [Scala](www.scala-lang.org) aparece la noción de objeto pero está asociada a otra idea que contaremos más adelante.
