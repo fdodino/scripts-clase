@@ -74,6 +74,20 @@ Vemos algunas diferencias respecto a Wollok
 - javascript permite el acceso directo a las referencias de un objeto (Wollok nos obliga a hacerlo mediante accessors)
 - javascript es dinámico: puedo agregar o modificar referencias y comportamiento sin que haya un "reinicio". En esto reside su gran poder.
 
+En Wollok es necesario cambiar la referencia a un nuevo objeto para poder lograr que un mensaje pueda ser entendido:
+
+```xtend
+>>> var pepita = object { }
+an Object[]
+>>> pepita.jugar()
+wollok.lang.MessageNotUnderstoodException: anonymousObject does not understand message jugar()
+
+>>> pepita = object { method jugar() { } }
+an Object[]
+>>> pepita.jugar()
+>>> 
+```
+
 Si quieren chusmear más pueden profundizar sobre
 
 - [Diseño en Javascript 5](https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%201st%20edition,%20June%201997.pdf)
@@ -95,7 +109,7 @@ Number fact = method(self * (self - 1) fact)
 Y una cuenta de banco donde podemos depositar plata:
 
 ```ioke
-// Definición de la cuenta bancaria
+// Definicion de la cuenta bancaria
 CuentaBancaria = Origin mimic do(
   saldo = 0.0
   depositar = method(plata, self saldo += plata)
