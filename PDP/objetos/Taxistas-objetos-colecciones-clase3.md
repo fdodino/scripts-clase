@@ -1,3 +1,8 @@
+# Clase 3 Objetos
+
+por Fernando Dodino - Agosto 2017
+Distribuido con licencia [Creative commons Share-a-like](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
+
 # Repaso Objetos (30 minutos fumados en cañón)
 
 Hemos trabajado hasta aquí la noción de objeto como la primera forma de definir conceptos, agrupar comportamiento y encapsular estado.
@@ -148,3 +153,129 @@ Parados sobre el archivo con Ctrl + O pueden navegar definiciones y métodos... 
 
 # Intro a Colecciones
 
+Una colección es una agrupación de objetos. Tenemos dos estilos diferentes para crear series de objetos:
+
+- si nos importa el orden, creamos una lista con el literal `[]`
+- si no queremos duplicados y no nos importa el orden, creamos un conjunto con el literal `#{}`
+
+Por ejemplo podemos crear una lista de choferes en el REPL
+
+```xtend
+>>> const choferes = [daniel, alejandro, luciana]
+```
+
+Esto implica que hay un orden: primero Daniel, luego Alejandro y finalmente Luciana.
+
+## Agregar y sacar elementos a una colección
+
+Puedo agregar un elemento (es dinámico, a diferencia del vector):
+
+```xtend
+>>> const choferes = [daniel, luciana]
+[daniel[], luciana[edad=37]]
+>>> choferes.add(alejandro)
+>>> choferes
+[daniel[], luciana[edad=37], alejandro[]]
+>>> 
+```
+
+Pero además, veremos que las listas y los conjuntos son **polimórficos**, si cambio la primera línea que instancia los choferes, ¡también funciona el mensaje add!
+
+```xtend
+>>> const choferes = #{daniel, luciana}
+#{luciana[edad=37], daniel[]}
+>>> choferes.add(alejandro)
+>>> choferes
+#{alejandro[], luciana[edad=37], daniel[]}
+```
+
+Solo que Alejandro aparece primero que Luciana y Daniel, porque el orden en el que se agregan es indistinto.
+
+## Un uso práctico
+
+Ahora queremos agregar el siguiente requerimiento: "¿Con quién prefiere viajar un pasajero dada una lista de choferes?"
+
+- Susana quiere viajar siempre con el último de los choferes que le ofrecen
+- Norma lleva a cualquiera que la lleve a ella
+- Beto elige al que cobra más caro
+
+### Susana elige al último chofer
+
+Esto nos dice algunas cosas:
+
+- necesitamos pensar efectivamente en una lista, no tiene sentido el último en un conjunto porque podría ser uno en algún caso y otro en otro caso
+- tenemos que ver qué mensajes soporta una lista, una opción sigue siendo Ctrl + Shift + F3, buscar List e investigar el mismo código de Wollok (y su documentación), pero si se marean con eso pueden en todo caso acceder a la famosa [Guía de lenguajes](https://docs.google.com/document/d/1oJ-tyQJoBtJh0kFcsV9wSUpgpopjGtoyhJdPUdjFIJQ/edit). Allí vemos que existe last() como mensaje.
+- el método ¿responde una pregunta o es una acción? Lo primero, entonces usamos el = (también podemos usar llaves + return, es a gusto de ustedes)
+
+```xtend
+object susana {
+	
+	method elegirChofer(choferes) = choferes.last()
+
+}
+```
+
+### Norma
+
+Norma tiene estas definiciones de edad y esJoven:
+
+- nació el 13/05/1964
+- para ella los jóvenes son las personas que tienen menos de 60
+
+Instanciamos un Date , y calculamos la edad en base a un cálculo aproximado:
+
+```
+object norma {
+	const fechaNacimiento = new Date(13, 5, 1964) // ¿por qué const? Porque no vamos a querer cambiar esa referencia
+
+	method edad() = (new Date() - fechaNacimiento) / 365 // aproximadamente
+
+	method esJoven() = self.edad() < 60
+}
+```
+
+Queremos además que haya polimorfismo con Susana respecto a elegirChofer():
+
+
+- cualquiera: hay que buscar un mensaje que se adapte a "cualquier elemento de una lista". Existe, se llama anyOne() pero no está en la guía de lenguajes.
+- que la lleve a ella: esto implica filtrar aquellos choferes que la llevarían. El mensaje filter() nos va a servir
+
+```xtend
+method elegirChofer(choferes) = choferes.filter { chofer => chofer.llevaA(self) }.anyOne()
+```
+
+Primero aplicamos el mensaje filter, que necesita... bueno, para qué engañarlos... es una lambda que volvió en forma de fichas. La expresión recibe un chofer y el criterio para elegir cada uno de los choferes es que pueda llevarla a ella misma.
+
+Aquí vemos un **uso concreto de polimorfismo**: ¿qué objetos intervienen? Cualquiera a los que le pueda enviar el mensaje llevaA(unPasajero).
+
+> Y recalcamos que el polimorfismo es para el que usa los objetos polimórficos, no para Daniel o Alejandro.
+
+```xtend
+>>> norma.elegirChofer([daniel, alejandro, luciana])
+alejandro[]
+```
+
+(para poder hacer esto hay que correr el REPL desde el archivo pasajeros.wlk pero debe tener el import de los taxistas, guiño guiño o no van a poder utilizar esos wko)
+
+¿Qué pasa si ponemos en la colección un objeto que no entiende el mensaje llevaA(unPasajero)?
+
+```xtend
+>>> norma.elegirChofer([daniel, alejandro, susana, luciana])
+wollok.lang.MessageNotUnderstoodException: susana[] does not understand llevaA(p0)
+   at (/home/fernando/workspace/wollok-2017/taxistasStubs/src/pasajeros.wlk:1)
+```
+
+Ah, se rompe.
+Claro, tiene sentido, ¿no?
+
+### Beto elige al que cobra más caro
+
+Mmm... ¿cómo sabemos quién cobra más caro?
+
+Tenemos que agregar esa información en cada taxista, esto implica una tarea de análisis:
+
+- Daniel cobra 50 $ cada viaje
+- Luciana cobra 100 $ - la edad del pasajero cada viaje
+- Alejandro cobra 15 $ a los jóvenes ó $ 20 en caso contrario
+
+Agregamos ese comportamiento

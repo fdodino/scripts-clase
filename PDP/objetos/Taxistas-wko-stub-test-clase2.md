@@ -355,7 +355,7 @@ const choferes = #{alejandro, daniel, luciana}
 
 Entonces nuestro test podría ser que a Juana la llevan Daniel y Alejandro, pero no Luciana.
 
-Entonces, si tuviéramos un conjunto de choferes, y filramos aquellos que llevan a Juana, nos quedaría el conjunto #{daniel, alejandro} (o Alejandro y Daniel, la comparación será indistinta).
+Entonces, si tuviéramos un conjunto de choferes, y filtramos aquellos que llevan a Juana, nos quedaría el conjunto #{daniel, alejandro} (o Alejandro y Daniel, la comparación será indistinta).
 
 Aquí necesitaremos:
 
