@@ -352,7 +352,7 @@ Queremos registrar todos los viajes que hizo, donde sepa
 - los kilómetros recorridos
 - las personas que viajaron
 
-```xtend
+```scala
 object daniel {
 	method agregarViaje(viaje) {
 		viajes.add(viaje)
@@ -390,7 +390,7 @@ method llevo(pasajero) = viajes.any { viaje => viaje.pasajeros().contains(pasaje
 
 Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel que lleva 20 kilómetros.
 
-```xtend
+```groovy
 method llevo(pasajero) = viajes.filter { viaje => viaje.esLargo() }
 ```
 
