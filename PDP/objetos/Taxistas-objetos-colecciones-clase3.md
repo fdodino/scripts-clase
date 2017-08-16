@@ -207,7 +207,7 @@ Esto nos dice algunas cosas:
 - tenemos que ver qué mensajes soporta una lista, una opción sigue siendo Ctrl + Shift + F3, buscar List e investigar el mismo código de Wollok (y su documentación), pero si se marean con eso pueden en todo caso acceder a la famosa [Guía de lenguajes](https://docs.google.com/document/d/1oJ-tyQJoBtJh0kFcsV9wSUpgpopjGtoyhJdPUdjFIJQ/edit). Allí vemos que existe last() como mensaje.
 - el método ¿responde una pregunta o es una acción? Lo primero, entonces usamos el = (también podemos usar llaves + return, es a gusto de ustedes)
 
-```xtend
+```scala
 object susana {
 	
 	method elegirChofer(choferes) = choferes.last()
@@ -224,7 +224,7 @@ Norma tiene estas definiciones de edad y esJoven:
 
 Instanciamos un Date , y calculamos la edad en base a un cálculo aproximado:
 
-```
+```scala
 object norma {
 	const fechaNacimiento = new Date(13, 5, 1964) // ¿por qué const? Porque no vamos a querer cambiar esa referencia
 
@@ -279,3 +279,60 @@ Tenemos que agregar esa información en cada taxista, esto implica una tarea de 
 - Alejandro cobra 15 $ a los jóvenes ó $ 20 en caso contrario
 
 Agregamos ese comportamiento
+
+```scala
+object daniel {
+	...
+	method valorViaje(pasajero) = 5
+}
+
+object alejandro {
+	...
+	method valorViaje(pasajero) = if (pasajero.esJoven()) 15 else 20
+}
+
+object luciana {
+	...
+	method valorViaje(pasajero) = 100 - pasajero.edad()		
+}
+```
+
+Ahora sí, Beto tiene que elegir el taxista que le cobra más, por suerte tenemos un mensaje max():
+
+```scala
+object beto {
+	method elegirChofer(choferes) = choferes.max { chofer => chofer.valorViaje(self) }
+}
+```
+
+Lo evaluamos y...
+
+```xtend
+>>> beto.elegirChofer([luciana, alejandro, daniel])
+wollok.lang.MessageNotUnderstoodException: beto[] does not understand edad()
+```
+
+¡Se rompe porque no definimos la edad de Beto!
+Beto tiene 42 años y dice que nadie es joven.
+
+Ahora sí
+
+```scala
+object beto {
+	
+	method edad() = 42
+	method esJoven() = false
+	method elegirChofer(choferes) = choferes.max { chofer => chofer.valorViaje(self) }
+	
+}
+```
+
+Podemos evaluar ahora
+
+```xtend
+>>> beto.elegirChofer([luciana, alejandro, daniel])
+luciana[edad=37]
+```
+
+Claramente es la que más le cobra.
+
