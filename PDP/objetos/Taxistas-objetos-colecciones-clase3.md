@@ -7,7 +7,19 @@ Esta forma de definir código en base a un objeto no es exclusiva de Wollok:
 
 ## Self 
 
-La primera idea de tener la noción de objeto fue [**Self**](http://www.selflanguage.org/) en 1986, que nació en Xerox Parc Place como hermano menor de Smalltalk (comparten una sintaxis muy similar)
+La primera idea de tener la noción de objeto fue [**Self**](http://www.selflanguage.org/) en 1986, que nació en Xerox Parc Place como hermano menor de Smalltalk (comparten una sintaxis muy similar).
+
+Cada objeto define
+
+- slots o referencias
+- métodos
+
+![self](http://handbook.selflanguage.org/2017.1/_images/Chapter_2_Image_2.png)
+
+Fue también el primero que introdujo la idea de manipulación enteramente visual de objetos:
+
+![morphic](http://handbook.selflanguage.org/2017.1/_images/Figure1.png)
+
 
 ## Javascript
 
