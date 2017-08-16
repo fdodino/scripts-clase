@@ -100,37 +100,26 @@ Si quieren chusmear más pueden profundizar sobre
 
 ## Ioke
 
-[Ioke](https://en.wikipedia.org/wiki/Ioke_(programming_language)) (06/11/2008) fue un proyecto basado en la VM de Java que proponía trabajar con prototipos. Vemos por ejemplo la implementación de factorial
+[Ioke](https://en.wikipedia.org/wiki/Ioke_(programming_language)) (06/11/2008) fue un proyecto basado en la VM de Java que proponía trabajar con prototipos, intercalando lenguajes como Io, Ruby y Lisp. Vemos la misma implementación de pepita en Ioke:
 
 ```ioke
-// definición
-0      fact = 1
-Number fact = method(self * (self - 1) fact)
-
-// uso
-10 fact println
-```
-
-Y una cuenta de banco donde podemos depositar plata:
-
-```ioke
-// Definicion de la cuenta bancaria
-CuentaBancaria = Origin mimic do(
-  saldo = 0.0
-  depositar = method(plata, self saldo += plata)
-  mostrar = method("Saldo de la cuenta: $#{saldo}" println)
+pepita = Origin mimic do(
+	energia = 0.0
+	comer = method(gramos, self energia += 4 * gramos)
+	volar = method(kilometros, self energia -= (kilometros + 10))
+	show = method("Pepita energia: $#{energia}" println)
 )
 
-// Uso
-"Inicio: " print
-CuentaBancaria mostrar
 
-"Depositamos $10" println
-CuentaBancaria depositar(10.0)
-
-"Final: " print
-CuentaBancaria mostrar
+pepita show
+"Pepita come 10 gramos" println
+pepita comer(10)
+"Pepita vuela 3 kilometros" println
+pepita volar(3)
+pepita show
 ```
+
+El archivo pepita.ik tiene la definición de pepita y luego el script que prueba cómo come y vuela.
 
 ## Otras apariciones de object
 
