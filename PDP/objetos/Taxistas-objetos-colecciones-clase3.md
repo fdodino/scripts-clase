@@ -151,7 +151,7 @@ Cosas útiles:
 En particular Ctrl + Shift + F3, permite buscar Date... y ahí pueden navegar el código para ver si hay algo que les sirva.
 Parados sobre el archivo con Ctrl + O pueden navegar definiciones y métodos... espero les sea útil.
 
-# Intro a Colecciones
+# Intro a Colecciones (10 minutos)
 
 Una colección es una agrupación de objetos. Tenemos dos estilos diferentes para crear series de objetos:
 
@@ -191,7 +191,7 @@ Pero además, veremos que las listas y los conjuntos son **polimórficos**, si c
 
 Solo que Alejandro aparece primero que Luciana y Daniel, porque el orden en el que se agregan es indistinto.
 
-## Un uso práctico
+## Un uso práctico (1 hora)
 
 Ahora queremos agregar el siguiente requerimiento: "¿Con quién prefiere viajar un pasajero dada una lista de choferes?"
 
@@ -234,13 +234,13 @@ object norma {
 }
 ```
 
-Queremos además que haya polimorfismo con Susana respecto a elegirChofer():
+Queremos además que sea polimórfica a Susana respecto a saber elegir un chofer:
 
-
-- cualquiera: hay que buscar un mensaje que se adapte a "cualquier elemento de una lista". Existe, se llama anyOne() pero no está en la guía de lenguajes.
-- que la lleve a ella: esto implica filtrar aquellos choferes que la llevarían. El mensaje filter() nos va a servir
+- **hay que elegir cualquiera:** para eso se debe buscar un mensaje que se adapte a "cualquier elemento de una lista". Existe, se llama anyOne() pero no está en la guía de lenguajes.
+- **que la lleve a ella:** esto implica filtrar aquellos choferes que la llevarían. El mensaje filter() nos va a servir
 
 ```xtend
+>>objeto norma
 method elegirChofer(choferes) = choferes.filter { chofer => chofer.llevaA(self) }.anyOne()
 ```
 
@@ -272,11 +272,11 @@ Claro, tiene sentido, ¿no?
 
 Mmm... ¿cómo sabemos quién cobra más caro?
 
-Tenemos que agregar esa información en cada taxista, esto implica una tarea de análisis:
+Tenemos que agregar esa información en cada taxista, esto implica una tarea de análisis. Luego del relevamiento sabemos cuánto cobra cada taxista:
 
 - Daniel cobra 50 $ cada viaje
-- Luciana cobra 100 $ - la edad del pasajero cada viaje
 - Alejandro cobra 15 $ a los jóvenes ó $ 20 en caso contrario
+- Luciana cobra 100 $ - la edad del pasajero cada viaje
 
 Agregamos ese comportamiento
 
@@ -315,7 +315,7 @@ wollok.lang.MessageNotUnderstoodException: beto[] does not understand edad()
 ¡Se rompe porque no definimos la edad de Beto!
 Beto tiene 42 años y dice que nadie es joven.
 
-Ahora sí
+Agregamos estas definiciones:
 
 ```scala
 object beto {
@@ -327,7 +327,7 @@ object beto {
 }
 ```
 
-Podemos evaluar ahora
+Y ya podemos evaluar
 
 ```xtend
 >>> beto.elegirChofer([luciana, alejandro, daniel])
@@ -336,7 +336,74 @@ luciana[edad=37]
 
 Claramente es la que más le cobra:
 
-- Luciana le cobra 100 - 42 (la edad) = 58
 - Daniel le cobra 50
-- Alejandro le cobra 20 (no es joven)
+- Alejandro le cobra 20 porque no es joven
+- Luciana le cobra 100 - 42 (la edad) = 58
 
+# Después del recreo - Ejercicio práctico (1 hora 10')
+
+Daniel nos encargó una serie de requerimientos que debemos incorporar:
+
+## Registrar viajes
+
+Daniel nos pidió que registremos todos los viajes que hizo, donde sepa
+
+- a qué localidad fue
+- los kilómetros recorridos
+- las personas que viajaron
+
+```xtend
+object daniel {
+	method agregarViaje(viaje) {
+		viajes.add(viaje)
+	}
+}
+```
+
+## Localidades visitadas
+
+Queremos saber las localidades visitadas por Daniel, en base a los viajes que hizo. No debe haber repetidos.
+
+```xtend
+object daniel {
+	method localidadesVisitadas() =
+		viajes.map { viaje => viaje.localidad() }.asSet()
+}
+```
+
+## Kilómetros recorridos
+
+Queremos saber el total de kilómetros recorridos por Daniel en base a sus viajes.
+
+```xtend
+object daniel {
+	method kilometrosRecorridos() =
+		viajes.sum { viaje => viaje.kilometros() }
+
+	method kilometrosRecorridos2() =
+		viajes.fold(0, { acum, viaje => acum + viaje.kilometros() })
+
+}
+```
+
+## Saber si llevó a una persona
+
+Queremos saber si Daniel llevó a un pasajero.
+
+```xtend
+object daniel {
+	method llevo(pasajero) =
+		viajes.any { viaje => viaje.pasajeros().contains(pasajero) }
+}		
+```
+
+## Saber qué viajes largos hizo
+
+Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel que lleva 20 kilómetros.
+
+```xtend
+object daniel {
+	method llevo(pasajero) =
+		viajes.filter { viaje => viaje.esLargo() }
+}
+```
