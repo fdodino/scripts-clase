@@ -390,7 +390,7 @@ method llevo(pasajero) = viajes.any { viaje => viaje.pasajeros().contains(pasaje
 
 Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel que lleva 20 kilómetros.
 
-```groovy
+```ruby
 method llevo(pasajero) = viajes.filter { viaje => viaje.esLargo() }
 ```
 
