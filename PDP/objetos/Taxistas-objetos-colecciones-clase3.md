@@ -283,7 +283,7 @@ Agregamos ese comportamiento
 ```scala
 object daniel {
 	...
-	method valorViaje(pasajero) = 5
+	method valorViaje(pasajero) = 50
 }
 
 object alejandro {
@@ -334,5 +334,9 @@ Podemos evaluar ahora
 luciana[edad=37]
 ```
 
-Claramente es la que más le cobra.
+Claramente es la que más le cobra:
+
+- Luciana le cobra 100 - 42 (la edad) = 58
+- Daniel le cobra 50
+- Alejandro le cobra 20 (no es joven)
 
