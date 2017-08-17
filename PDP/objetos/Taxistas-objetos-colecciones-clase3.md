@@ -333,6 +333,16 @@ Y ya podemos evaluar
 luciana[edad=37]
 ```
 
+Podemos mostrar el flujo de envío de mensajes en un diagrama de secuencia que cuenta:
+
+- qué objeto dispara la pregunta (salvo en el mensaje inicial que sale del REPL)
+- qué objeto responde
+- y a qué objetos le pide ayuda cada objeto para resolver cada requerimiento
+
+![diagrama_secuencia](http://www.plantuml.com/plantuml/img/TSyn2W8n40NGVawHKWjX4GIniB7p03PMuyvNiuG4ncpElt5nao3QJjwVFxbkZkQ66Cp1mE5XzVGCT-XgJSHzj8aZvdUQKSR2ti9bdjW5lLWUaB4YZkhDhgC2sM5WBng-RLrS25NStFCwXmHVjsyx4lm8bqetzfOz_o_y05fWKoOipJ_sRTEIQcVls0G0)
+
+Si el sistema tiene responsabilidades bien definidas para cada objeto, no hay un solo objeto que hace las preguntas sino que los que preguntan y los que responden van cambiando de rol, eso es lo que vemos en este diagrama.
+
 Claramente es la que más le cobra:
 
 - Daniel le cobra 50
@@ -387,7 +397,7 @@ method llevo(pasajero) = viajes.any { viaje => viaje.pasajeros().contains(pasaje
 
 ## Saber qué viajes largos hizo
 
-Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel que lleva 20 kilómetros.
+Queremos saber qué viajes largos hizo Daniel. Un viaje largo es aquel de 20 ó más kilómetros.
 
 ```ruby
 method llevo(pasajero) = viajes.filter { viaje => viaje.esLargo() }
