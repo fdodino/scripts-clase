@@ -131,6 +131,12 @@ Pepita vuela 3 kilometros
 Pepita energia: $27.0
 ```
 
+## Ozono
+
+Ozono (anteriormente llamado LOOP: Learning Object-Oriented Programming) fue una herramienta desarrollada por algunos docentes de esta facultad que permitía el trabajo con objetos antes de utilizar otras herramientas de Smalltalk.
+
+Pueden ver [en esta página](http://www.pdep.com.ar/Home/software/software-pharo/object-browser-ultima-version) una demostración funcionando (por lo general el primer TP de la materia se hacía en este entorno).
+
 ## Otras apariciones de object
 
 En [Scala](www.scala-lang.org) aparece la noción de objeto pero está asociada a otra idea que contaremos más adelante.
@@ -333,11 +339,15 @@ Y ya podemos evaluar
 luciana[edad=37]
 ```
 
+## El diagrama de secuencia: otra vista para entender un requerimiento
+
 Podemos mostrar el flujo de envío de mensajes en un diagrama de secuencia que cuenta:
 
 - qué objeto dispara la pregunta (salvo en el mensaje inicial que sale del REPL)
 - qué objeto responde
 - y a qué objetos le pide ayuda cada objeto para resolver cada requerimiento
+- no estamos escribiendo todos los parámetros porque en este caso no hay métodos con diferente aridad, y mantener sincronizado el mensaje con sus argumentos es más costoso (y muestra en cierta forma una duplicidad)
+- como resultado, vemos el ciclo de vida o *timeline* de los objetos
 
 ![diagrama_secuencia](http://www.plantuml.com/plantuml/img/TSyn2W8n40NGVawHKWjX4GIniB7p03PMuyvNiuG4ncpElt5nao3QJjwVFxbkZkQ66Cp1mE5XzVGCT-XgJSHzj8aZvdUQKSR2ti9bdjW5lLWUaB4YZkhDhgC2sM5WBng-RLrS25NStFCwXmHVjsyx4lm8bqetzfOz_o_y05fWKoOipJ_sRTEIQcVls0G0)
 
