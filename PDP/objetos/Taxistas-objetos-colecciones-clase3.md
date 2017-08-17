@@ -74,9 +74,15 @@ pepita.descansar()
 pepita.durmioSiesta
 ```
 
-Vemos algunas diferencias respecto a Wollok
+Similitudes con Wollok:
 
-- javascript permite el acceso directo a las referencias de un objeto (Wollok nos obliga a hacerlo mediante accessors)
+- no estoy obligado a definir los tipos. Yo puedo enviar cualquier mensaje que un objeto entienda (así funciona el method lookup básico).
+- puedo definir objetos anónimos y referenciarlos mediante variables
+- el objeto agrupa comportamiento y estado (el conjunto de variables)
+
+Algunas diferencias respecto a Wollok
+
+- javascript permite el acceso directo a las referencias de un objeto. Wollok nos obliga a hacerlo mediante accessors, para javacript tanto las variables como los métodos son cajoneras donde la única diferencia es que en las segundas guardamos expresiones lambda.
 - javascript es dinámico: puedo agregar o modificar referencias y comportamiento sin que haya un "reinicio". En esto reside su gran poder.
 
 En Wollok es necesario cambiar la referencia a un nuevo objeto para poder lograr que un mensaje pueda ser entendido:
