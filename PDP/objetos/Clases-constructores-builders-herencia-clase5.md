@@ -83,7 +83,7 @@ Pero también podemos instanciarlo con valores:
 
 ## Introducción a Constructores
 
-Para poder crear una instancia de una clase, necesitamos que esa clase defina al menos un **constructor**, un mecanismo que nos dice qué debe ocurrir cuando inicializamos un objeto.
+Para poder crear una instancia de una clase, necesitamos que esa clase defina al menos un **constructor**, un mecanismo que nos dice qué debe ocurrir cuando instanciamos un objeto.
 
 Por defecto, cuando creamos una clase no debemos escribir ningún constructor, porque viene "de fábrica" con un constructor sin parámetros. Entonces al ver este código
 
@@ -96,7 +96,7 @@ class Auto {
 }
 ```
 
-yo se que puedo crear un auto en la consola de esta manera:
+sabemos que para crear un auto en la consola lo hacemos de esta manera:
 
 ```xtend
 >>> const fierrito = new Auto()
@@ -121,7 +121,7 @@ Debemos inicializar la referencia "patente". El problema es que si escribimos un
 
 ## Constructores específicos
 
-Escribiremos entonces un constructor específico para autos: para instanciar un auto necesitamos pasarle la patente:
+Escribimos entonces un constructor específico: para instanciar un auto necesitamos pasarle la patente:
 
 ```xtend
 class Auto {
