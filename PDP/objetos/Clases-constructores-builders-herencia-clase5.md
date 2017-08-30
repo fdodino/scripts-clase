@@ -207,7 +207,7 @@ Consideremos que un viaje tiene
 
 - un chofer
 - un auto
-- un pasajero
+- varios pasajeros
 - los kilómetros recorridos
 - el costo
 - la fecha del viaje
@@ -218,15 +218,15 @@ Podríamos pensar en un objeto **inmutable**, es decir que nuestro viaje se debe
 class Viaje {
 	var chofer
 	var auto
-	var pasajero
+	var pasajeros // sabemos que es const, pero bueh...
 	var kilometros
 	var costo
 	var fecha
 
-	constructor(_chofer, _auto, _pasajero, _kilometros, _costo, _fecha) {
+	constructor(_chofer, _auto, _pasajeros, _kilometros, _costo, _fecha) {
 		chofer = _chofer
 		auto = _auto
-		pasajero = _pasajero
+		pasajeros = _pasajeros
 		kilometros = _kilometros
 		costo = _costo
 		fecha = _fecha
@@ -242,7 +242,7 @@ describe "tests de viajes" {
 	const viajeACasanovas
 
 	fixture {
-		viajeACasanovas = new Viaje(daniel, peugeot404, susana, 5.9, 260, new Date())	
+		viajeACasanovas = new Viaje(daniel, peugeot404, [susana], 5.9, 260, new Date())	
 	}
 ```
 
@@ -264,7 +264,7 @@ El ViajeBuilder va a definir una responsabilidad para setear cada uno de los val
 	fixture {
 		viajeACasanovas = new ViajeBuilder()
 		viajeACasanovas.chofer(daniel)
-		viajeACasanovas.pasajero(susana)
+		viajeACasanovas.kilometros(5.6)
 		... etc ...
 ```
 
@@ -274,7 +274,7 @@ El ViajeBuilder va a definir una responsabilidad para setear cada uno de los val
 	fixture {
 		viajeACasanovas = new ViajeBuilder()
 			.chofer(daniel)
-			.pasajero(susana)
+			.kilometros(5.6)
 			... etc ...
 ```
 
@@ -284,7 +284,7 @@ Y al final debería devolver el viaje propiamente dicho, para que la referencia 
 	fixture {
 		viajeACasanovas = new ViajeBuilder()
 			.chofer(daniel)
-			.pasajero(susana)
+			.kilometros(5.6)
 			... etc ...
 			.build()
 ```
@@ -311,7 +311,7 @@ Claro, esto requiere que viaje tenga nuevamente un constructor por defecto. La o
 class ViajeBuilder {
 
 	var chofer
-	var pasajero
+	var pasajeros
 	... etc ...
 
 	// no requiere constructor	
@@ -336,8 +336,8 @@ class ViajeBuilder {
 		return self
 	}
 
-	method pasajero(_pasajero) {
-		viaje.pasajero(_pasajero)
+	method kilometros(_kilometros) {
+		viaje.kilometros(_kilometros)
 		return self
 	}
 
@@ -354,7 +354,7 @@ Algunas observaciones
 
 - cada setter devuelve además el objeto receptor, para poder encadenar los mensajes. Aquí vemos un ejemplo de un método que **si bien es acción, también está devolviendo valores**
 - el lector puede sospechar que el ViajeBuilder no aporta ningún valor agregado a nuestra solución, ya que además debe implementar los setters de Viaje (que todavía no están definidos). Hasta ahora solo parece un *syntactic sugar*, pero el Builder provee algunas funcionalidades interesantes:
-	1. permite construir setters simplificados, como al ingresar una fecha
+	1. permite construir setters simplificados, como al ingresar una fecha o cargar los pasajeros en forma individual (en lugar de tener que construir una lista aparte)
 	2. el constructor puede inicializar valores diferentes al que tenga un viaje, para ciertos casos
 	3. el método build() puede incorporar validaciones, para detectar inconsistencias en la creación de un viaje
 
@@ -375,8 +375,12 @@ class ViajeBuilder {
 		return self
 	}
 
-	method pasajero(_pasajero) {
-		viaje.pasajero(_pasajero)
+	// 2. Agregamos los pasajeros en forma individual, 
+	// esto evita generar una lista en el test o en el REPL
+	method agregarPasajero(pasajero) {
+		const pasajeros = viaje.pasajeros()
+		pasajeros.add(pasajero)
+		viaje.pasajeros(pasajeros)
 		return self
 	}
 
@@ -390,6 +394,9 @@ class ViajeBuilder {
 
 	// 3. Agregamos validaciones en el build
 	method build() {
+		if (viaje.pasajeros().isEmpty()) {
+			self.error("Viaje: debe ingresar pasajeros")
+		}
 		if (viaje.kilometros() <= 0) {
 			self.error("Viaje: debe ingresar kilometraje")
 		}
@@ -408,7 +415,8 @@ describe "tests de viajes" {
 	fixture {
 		viajeACasanovas = new ViajeBuilder()
 			.chofer(daniel)
-			.pasajero(susana)
+			.agregarPasajero(susana)
+			.agregarPasajero(manuel)
 			.auto(peugeot404)
 			.costo(260) // asignamos en el orden que queramos
 			.kilometros(5.9)
