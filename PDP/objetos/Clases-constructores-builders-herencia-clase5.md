@@ -117,7 +117,7 @@ Pero ahora nuestra clase Auto no compila.
 
 ![images](images/autoConstPatente.png)
 
-Debemos inicializar la referencia "patente". El problema es que si escribimos un valor para patente, será un valor compartido para todos los autos.
+Debemos inicializar la referencia "patente". El problema es que si definimos un valor para patente, será un valor compartido para todos los autos.
 
 ## Constructores específicos
 
@@ -157,7 +157,7 @@ Mientras no definamos más constructores, no hay diferencia en inicializar en un
 
 Entonces en la consola REPL para poder crear un auto necesitaremos pasarle la patente:
 
-```xtend
+```
 >>> new Auto()
 ERROR: Wrong number of arguments. Should be new Auto(_patente) (line: 1)
 >>> new Auto(2, "hola")
@@ -166,7 +166,7 @@ ERROR: Wrong number of arguments. Should be new Auto(_patente) (line: 1)
 a Auto[patente=RVM363, kilometros=0]
 ```
 
-Lo bueno es que nos avisa cuando nos faltan o nos sobran parámetros. Y como vemos, el constructor "por defecto" deja de ser válido cuando construimos nuestros propios constructores.
+Lo bueno es que Wollok nos avisa cuando nos faltan o nos sobran parámetros. Y como vemos, el constructor "por defecto" deja de ser válido cuando construimos nuestros propios constructores.
 
 ## Agregando constructores
 
@@ -234,7 +234,7 @@ class Viaje {
 }
 ```
 
-Instanciar un viaje en un fixture no es algo simpático, son muchos parámetros y debemos estar atentos a ellos:
+Instanciar un viaje en un fixture no es algo simpático, son muchos parámetros y debemos estar atentos al orden que tienen:
 
 ```xtend
 describe "tests de viajes" {
@@ -246,11 +246,10 @@ describe "tests de viajes" {
 	}
 ```
 
-Es fácil confundir el orden de los argumentos, más allá de que los parámetros tengan nombres representativos.
 
 ## Objetos que construyen objetos
 
-Para ayudarnos a crear un viaje, vamos a pedirle a un objeto que lo construya. Es decir, vamos a definir un **Builder**.
+Vamos a definir un objeto que nos ayudará a construir un viaje. Es decir, vamos a definir un **Builder**.
 
 Primero reemplazaremos el new Viaje() por un new ViajeBuilder()
 
@@ -354,9 +353,9 @@ class ViajeBuilder {
 Algunas observaciones
 
 - cada setter devuelve además el objeto receptor, para poder encadenar los mensajes. Aquí vemos un ejemplo de un método que **si bien es acción, también está devolviendo valores**
-- el lector puede sospechar que el ViajeBuilder no aporta ningún valor agregado a nuestra solución, ya que además debe implementar los setters de Viaje (que todavía no están definidos). Hasta ahora solo parece un *syntactic sugar*, pero el Builder provee dos funcionalidades interesantes:
+- el lector puede sospechar que el ViajeBuilder no aporta ningún valor agregado a nuestra solución, ya que además debe implementar los setters de Viaje (que todavía no están definidos). Hasta ahora solo parece un *syntactic sugar*, pero el Builder provee algunas funcionalidades interesantes:
 	1. permite construir setters simplificados, como al ingresar una fecha
-	2. el constructor puede inicializar valores diferentes al que tenga un viaje, para ciertas ocasiones específicas
+	2. el constructor puede inicializar valores diferentes al que tenga un viaje, para ciertos casos
 	3. el método build() puede incorporar validaciones, para detectar inconsistencias en la creación de un viaje
 
 Vemos la implementación final del Builder, con cada uno de los puntos
