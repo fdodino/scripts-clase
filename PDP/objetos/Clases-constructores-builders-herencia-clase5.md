@@ -380,7 +380,7 @@ class ViajeBuilder {
 	method agregarPasajero(pasajero) {
 		const pasajeros = viaje.pasajeros()
 		pasajeros.add(pasajero)
-		viaje.pasajeros(pasajeros)
+		viaje.pasajeros(pasajeros) // otra opción es que exista el método agregarPasajero en Viaje, algo muy recomendable
 		return self
 	}
 
