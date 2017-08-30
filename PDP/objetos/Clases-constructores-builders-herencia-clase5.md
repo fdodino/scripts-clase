@@ -203,3 +203,161 @@ La pregunta que el lector podría hacerse es: ¿qué pasa si tengo un objeto con
 
 ## El caso de estudio: un viaje
 
+Consideremos que un viaje tiene
+
+- un chofer
+- un auto
+- un pasajero
+- los kilómetros recorridos
+- un valor
+- la fecha del viaje
+
+Podríamos pensar en un objeto **inmutable**, es decir que nuestro viaje se debería construir y no modificarse a lo largo de su ciclo de vida. Pero vamos a permitirnos una licencia, y dejar referencias variables...
+
+```xtend
+class Viaje {
+	var chofer
+	var auto
+	var pasajero
+	var kilometros
+	var valor
+	var fecha
+
+	constructor(_chofer, _auto, _pasajero, _kilometros, _valor, _fecha) {
+		chofer = _chofer
+		auto = _auto
+		pasajero = _pasajero
+		kilometros = _kilometros
+		valor = _valor
+		fecha = _fecha
+	}	
+}
+```
+
+Instanciar un viaje en un fixture no es algo simpático, son muchos parámetros y debemos estar atentos a ellos:
+
+```xtend
+describe "tests de viajes" {
+
+	const viajeACasanovas
+
+	fixture {
+		viajeACasanovas = new Viaje(daniel, peugeot404, susana, 5.9, 260, new Date())	
+	}
+```
+
+Es fácil confundir el orden de los argumentos, más allá de que los parámetros tengan nombres representativos.
+
+## Objetos que construyen objetos
+
+Para ayudarnos a crear un viaje, vamos a pedirle a un objeto que lo construya. Es decir, vamos a definir un **Builder**.
+
+Primero reemplazaremos el new Viaje() por un new ViajeBuilder()
+
+```xtend
+	fixture {
+		viajeACasanovas = new ViajeBuilder(). ...	
+```
+
+El ViajeBuilder va a definir una responsabilidad para setear cada uno de los valores. Pero en lugar de utilizar un setter común, lo que nos obligaría a repetir una y otra vez el objeto receptor...
+
+```xtend
+	fixture {
+		viajeACasanovas = new ViajeBuilder()
+		viajeACasanovas.chofer(daniel)
+		viajeACasanovas.pasajero(susana)
+		... etc ...
+```
+
+... que sería lo mismo que hacerlo con el viaje, vamos a introducir un pequeño cambio: al asignar una referencia vamos a devolver el mismo ViajeBuilder. Esto permite encadenar los mensajes uno por uno:
+
+```xtend
+	fixture {
+		viajeACasanovas = new ViajeBuilder()
+			.chofer(daniel)
+			.pasajero(susana)
+			... etc ...
+```
+
+Y al final debería devolver el viaje propiamente dicho, para que la referencia viajeACasanovas apunte a un objeto viaje, y no a un ViajeBuilder:
+
+```xtend
+	fixture {
+		viajeACasanovas = new ViajeBuilder()
+			.chofer(daniel)
+			.pasajero(susana)
+			... etc ...
+			.build()
+```
+
+
+## Implementación del Builder
+
+Una opción es que el Builder tenga una referencia al viaje:
+
+```xtend
+class ViajeBuilder {
+
+	const viaje
+	
+	constructor() {
+		viaje = new Viaje()
+	}
+}
+```
+
+Claro, esto requiere que viaje tenga nuevamente un constructor por defecto. La otra opción es que el ViajeBuilder tenga referencias particulares:
+
+```xtend
+class ViajeBuilder {
+
+	var chofer
+	var pasajero
+	... etc ...
+
+	// no requiere constructor	
+}
+```
+
+Cuando tenemos muchas referencias la segunda alternativa no solo es es un poco más incómoda sino que también produce repetición de código. Vamos entonces por la primera opción, generando un constructor vacío para Viaje.
+
+## Ahora sí, la implementación de un Builder
+
+```xtend
+class ViajeBuilder {
+
+	const viaje
+	
+	constructor() {
+		viaje = new Viaje()
+	}
+	
+	method chofer(_chofer) {
+		viaje.chofer(_chofer)
+		return self
+	}
+
+	method pasajero(_pasajero) {
+		viaje.pasajero(_pasajero)
+		return self
+	}
+
+	...
+
+	method build() {
+		return viaje
+	}
+	
+}
+```
+
+Algunas observaciones
+
+- cada setter devuelve además el objeto receptor, para poder encadenar los mensajes. Aquí vemos un ejemplo de un método que **si bien es acción, también está devolviendo valores**
+- el lector puede sospechar que el ViajeBuilder no aporta ningún valor agregado a nuestra solución, ya que además debe implementar los setters de Viaje (que todavía no están definidos). Hasta ahora solo parece un *syntactic sugar*, pero el Builder provee dos funcionalidades interesantes:
+	1. permite construir setters simplificados, como al ingresar una fecha
+	2. el constructor puede inicializar valores diferentes al que tenga un viaje, para ciertas ocasiones específicas
+	3. el método build() puede incorporar validaciones, para detectar inconsistencias en la creación de un viaje
+
+Vemos la implementación final del Builder, donde vemos cada uno de los puntos
+
