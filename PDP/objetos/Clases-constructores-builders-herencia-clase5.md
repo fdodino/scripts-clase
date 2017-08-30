@@ -135,3 +135,71 @@ class Auto {
 	method esNuevo() = kilometros < 2000
 }
 ```
+
+También podríamos inicializar los kilómetros del auto en el constructor:
+
+
+```xtend
+class Auto {
+	const patente
+	var kilometros
+
+	constructor(_patente) {
+		patente = _patente
+		kilometros = 0
+	}
+
+	method esNuevo() = kilometros < 2000
+}
+```
+
+Mientras no definamos más constructores, no hay diferencia en inicializar en un lugar u otro. Si escribimos más constructores, es más cómodo dejarlo como estaba antes...
+
+Entonces en la consola REPL para poder crear un auto necesitaremos pasarle la patente:
+
+```xtend
+>>> new Auto()
+ERROR: Wrong number of arguments. Should be new Auto(_patente) (line: 1)
+>>> new Auto(2, "hola")
+ERROR: Wrong number of arguments. Should be new Auto(_patente) (line: 1)
+>>> new Auto("RVM363")
+a Auto[patente=RVM363, kilometros=0]
+```
+
+Lo bueno es que nos avisa cuando nos faltan o nos sobran parámetros. Y como vemos, el constructor "por defecto" deja de ser válido cuando construimos nuestros propios constructores.
+
+## Agregando constructores
+
+Como dijimos antes medio al pasar, se pueden crear constructores adicionales. Por ejemplo, podríamos instanciar un auto con una patente y un kilometraje específico:
+
+```xtend
+>>> new Auto("RVM363")
+a Auto[patente=RVM363, kilometros=0]
+>>> new Auto("RVM363", 180000)
+a Auto[patente=RVM363, kilometros=180000]
+```
+
+Esto se logra de la siguiente manera:
+
+```xtend
+class Auto {
+	const patente
+	var kilometros = 0
+
+	constructor(_patente) {
+		patente = _patente
+	}
+
+	constructor(_patente, _kilometros) {
+		patente = _patente
+		kilometros = _kilometros
+	}
+	
+	method esNuevo() = kilometros < 2000
+}
+```
+
+La pregunta que el lector podría hacerse es: ¿qué pasa si tengo un objeto con muchas referencias? ¿debo crear tantos constructores como referencias tenga?
+
+## El caso de estudio: un viaje
+
