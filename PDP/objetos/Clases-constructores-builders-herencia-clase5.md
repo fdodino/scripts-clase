@@ -209,7 +209,7 @@ Consideremos que un viaje tiene
 - un auto
 - un pasajero
 - los kilómetros recorridos
-- un valor
+- el costo
 - la fecha del viaje
 
 Podríamos pensar en un objeto **inmutable**, es decir que nuestro viaje se debería construir y no modificarse a lo largo de su ciclo de vida. Pero vamos a permitirnos una licencia, y dejar referencias variables...
@@ -220,15 +220,15 @@ class Viaje {
 	var auto
 	var pasajero
 	var kilometros
-	var valor
+	var costo
 	var fecha
 
-	constructor(_chofer, _auto, _pasajero, _kilometros, _valor, _fecha) {
+	constructor(_chofer, _auto, _pasajero, _kilometros, _costo, _fecha) {
 		chofer = _chofer
 		auto = _auto
 		pasajero = _pasajero
 		kilometros = _kilometros
-		valor = _valor
+		costo = _costo
 		fecha = _fecha
 	}	
 }
@@ -359,5 +359,63 @@ Algunas observaciones
 	2. el constructor puede inicializar valores diferentes al que tenga un viaje, para ciertas ocasiones específicas
 	3. el método build() puede incorporar validaciones, para detectar inconsistencias en la creación de un viaje
 
-Vemos la implementación final del Builder, donde vemos cada uno de los puntos
+Vemos la implementación final del Builder, con cada uno de los puntos
+
+```xtend
+class ViajeBuilder {
+
+	const viaje
+	
+	constructor() {
+		viaje = new Viaje()
+		viaje.fecha(new Date())
+	}
+	
+	method chofer(_chofer) {
+		viaje.chofer(_chofer)
+		return self
+	}
+
+	method pasajero(_pasajero) {
+		viaje.pasajero(_pasajero)
+		return self
+	}
+
+	// 2. Ingresamos una fecha con un setter específico
+	method fecha(dia, mes, anio) {
+		viaje.fecha(new Date(dia, mes, anio))
+		return self
+	}
+
+	... más setters ...
+
+	// 3. Agregamos validaciones en el build
+	method build() {
+		if (viaje.kilometros() <= 0) {
+			self.error("Viaje: debe ingresar kilometraje")
+		}
+		if (viaje.costo() <= 0) {
+			self.error("Viaje: debe ingresar el costo en $")
+		}
+		return viaje
+	}
+	
+}
+
+describe "tests de viajes" {
+
+	const viajeACasanovas
+
+	fixture {
+		viajeACasanovas = new ViajeBuilder()
+			.chofer(daniel)
+			.pasajero(susana)
+			.auto(peugeot404)
+			.costo(260) // asignamos en el orden que queramos
+			.kilometros(5.9)
+			.build()
+	}
+
+	...
+```
 
