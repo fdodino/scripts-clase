@@ -1,11 +1,9 @@
-# Clase, builders y herencia
+# Clase, constructores y builders
 
 por Fernando Dodino - Agosto 2017
 Distribuido con licencia [Creative commons Share-a-like](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 
 ## Repaso clases y objetos
-
-19:00 - 20:30 Fer
 
 Arrancamos repasando la diferencia entre objeto y clase.
 ¿Cuándo usar objetos anónimos, cuándo usar wko y cuándo clase?
