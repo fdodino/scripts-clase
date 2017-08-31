@@ -529,7 +529,7 @@ Cuando el objeto a instanciar es trivial, el builder es una herramienta que agre
 
 Pero...
 
-![images](images/adapter.png)
+<img src="images/adapter.png" width="128" height="128"/>
 
 No obstante, es un adaptador que **evita que los que usan al viaje se vean afectado cuando la interfaz de su construcción cambia**, algo muy probable cuando tengo muchas referencias internas que asignar, como en este caso pasó con el viaje.
 
