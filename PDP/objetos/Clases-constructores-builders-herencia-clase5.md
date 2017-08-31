@@ -212,29 +212,19 @@ Consideremos que un viaje tiene
 - el costo
 - la fecha del viaje
 
-Podríamos pensar en un objeto **inmutable**, es decir que nuestro viaje se debería construir y no modificarse a lo largo de su ciclo de vida. Pero vamos a permitirnos una licencia, y dejar referencias variables...
-
 ```xtend
 class Viaje {
 	var chofer
 	var auto
-	var pasajeros // sabemos que es const, pero bueh...
+	var pasajeros
 	var kilometros
 	var costo
 	var fecha
 
-	constructor(_chofer, _auto, _pasajeros, _kilometros, _costo, _fecha) {
-		chofer = _chofer
-		auto = _auto
-		pasajeros = _pasajeros
-		kilometros = _kilometros
-		costo = _costo
-		fecha = _fecha
-	}	
 }
 ```
 
-Instanciar un viaje en un fixture no es algo simpático, son muchos parámetros y debemos estar atentos al orden que tienen:
+Instanciar un viaje en un fixture no es algo simpático, estamos repitiendo una y otra vez el objeto receptor, y es algo incómodo:
 
 ```xtend
 describe "tests de viajes" {
@@ -242,7 +232,8 @@ describe "tests de viajes" {
 	const viajeACasanovas
 
 	fixture {
-		viajeACasanovas = new Viaje(daniel, peugeot404, [susana], 5.9, 260, new Date())	
+		viajeACasanovas = new Viaje()
+		viajeACasanovas.chofer(daniel), peugeot404, [susana], 5.9, 260, new Date())	
 	}
 ```
 
@@ -425,4 +416,121 @@ describe "tests de viajes" {
 
 	...
 ```
+
+De hecho, mejoraremos el método build, porque vamos a delegar la responsabilidad a la clase Viaje, ya que le corresponde a ella definirlo:
+
+```xtend
+class ViajeBuilder {
+
+	// 3. Delegamos al objeto viaje la validación
+	method build() {
+		viaje.validar()
+		return viaje
+	}
+
+```
+
+## Cambios al Viaje
+
+Podríamos pensar en un objeto **inmutable**, es decir que nuestro viaje se debería construir y no modificarse a lo largo de su ciclo de vida:
+
+```xtend
+class Viaje {
+	var chofer
+	var auto
+	var pasajeros
+	var kilometros
+	var costo
+	var fecha
+
+	constructor(_chofer, _auto, _pasajeros, _kilometros, _costo, _fecha) {
+		chofer = _chofer
+		auto = _auto
+		pasajeros = _pasajeros
+		kilometros = _kilometros
+		costo = _costo
+		fecha = _fecha
+	}	
+}
+```
+
+Esto podría traer serias consecuencias a mi fixture, pero vamos a adaptar la clase ViajeBuilder:
+
+- en el constructor de ViajeBuilder ya no podemos crear el viaje, porque nos falta información
+- por lo tanto, nuestra variable viaje pierde sentido, debemos tener referencias individuales
+- la construcción del viaje se difiere hasta el build(), que es cuando puedo efectivamente generar un viaje
+
+Vemos los cambios implementados en el Builder:
+
+```
+class ViajeBuilder {
+	var chofer
+	var auto
+	var pasajeros = []
+	var kilometros
+	var costo
+	var fecha
+
+	method fecha(dia, mes, anio) {
+		fecha = new Date(dia, mes, anio)
+		return self
+	}
+
+	method agregarPasajero(pasajero) {
+		pasajeros.add(pasajero)
+		return self
+	}
+
+	// otros setters que devuelven self
+
+	method build() {
+		const viaje = new Viaje(chofer, auto, pasajeros, kilometros,costo, fecha)
+		viaje.validar()
+		return viaje
+	}
+
+}
+```
+
+¿Qué debemos modificar en nuestro fixture?
+Nada.
+Nada.
+Volvemos a repetir: NADA.
+
+```xtend
+describe "tests de viajes" {
+
+	const viajeACasanovas
+
+	fixture {
+		viajeACasanovas = new ViajeBuilder()
+			.chofer(daniel)
+			.agregarPasajero(susana)
+			.agregarPasajero(manuel)
+			.auto(peugeot404)
+			.costo(260) // asignamos en el orden que queramos
+			.kilometros(5.9)
+			.build()
+	}
+
+```
+
+Y si tengo 5, 6 ó 10 viajes... es muy bueno que no tenga que modificar mi fixture, es lo que paga el precio de tener que construir un Builder.
+
+## El builder no es para todos
+
+El builder no es una solución perfecta
+
+- está acoplado con el objeto que crea (es algo obvio pero vale recordarlo), por lo tanto...
+- ...hay también cierta duplicación de lógica
+- y la posibilidad de que el builder robe responsabilidades de instanciación (como la validación o la asignación de referencias)
+
+Cuando el objeto a instanciar es trivial, el builder es una herramienta que agrega burocracia y es un síntoma de sobrediseño.
+
+Pero...
+
+![images](images/adapter.png)
+
+No obstante, es un adaptador que **evita que los que usan al viaje se vean afectado cuando la interfaz de su construcción cambia**, algo muy probable cuando tengo muchas referencias internas que asignar, como en este caso pasó con el viaje.
+
 
