@@ -462,7 +462,7 @@ Esto podría traer serias consecuencias a mi fixture, pero vamos a adaptar la cl
 
 Vemos los cambios implementados en el Builder:
 
-```
+```xtend
 class ViajeBuilder {
 	var chofer
 	var auto
@@ -527,10 +527,10 @@ El builder no es una solución perfecta
 
 Cuando el objeto a instanciar es trivial, el builder es una herramienta que agrega burocracia y es un síntoma de sobrediseño.
 
-Pero...
+Pero en algunos casos puede ser una herramienta muy útil...
 
 <img src="images/adaptador.png" width="128" height="128"/>
 
-No obstante, es un adaptador que **evita que los que usan al viaje se vean afectado cuando la interfaz de su construcción cambia**, algo muy probable cuando tengo muchas referencias internas que asignar, como en este caso pasó con el viaje.
+...como adaptador que **evita que los que usan al viaje se vean afectado cuando la interfaz de su construcción cambia**, algo muy probable cuando tengo muchas referencias internas que asignar, como en este caso pasó con el viaje.
 
 
