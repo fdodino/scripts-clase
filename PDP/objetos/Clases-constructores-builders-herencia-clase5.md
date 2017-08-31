@@ -515,7 +515,7 @@ describe "tests de viajes" {
 
 ```
 
-Y si tengo 5, 6 ó 10 viajes... es muy bueno que no tenga que modificar mi fixture, es lo que paga el precio de tener que construir un Builder.
+> Y si tengo 5, 6 ó 10 viajes... es muy bueno que no tenga que modificar mi fixture, es lo que paga el precio de tener que construir un Builder.
 
 ## El builder no es para todos
 
