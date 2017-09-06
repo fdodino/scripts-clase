@@ -314,7 +314,7 @@ De esta manera estamos definiendo el constructor
 - y luego inicializa la referencia fechaUltimaLustrada
 
 
-## Límite para heredar constructores
+## Límite para heredar constructores - Juan
 
 Repasemos esta última definición
 
@@ -338,7 +338,7 @@ ERROR: Wrong number of arguments. Should be new AutoClasico(_kilometraje,_fechaU
 Dentro de la definición del constructor de 2 parámetros de AutoClasico sí estamos llamando al constructor de la superclase, pero no es visible desde afuera (una vez que escribimos el constructor para AutoClasico).
 
 
-# Definición de un WKO cuando hay constructores con parámetros - Juan
+# Definición de un WKO cuando hay constructores con parámetros
 
 Volviendo al objeto peugeot404, tenemos un problema: no hay constructor default, por lo tanto esta definición da error
 
