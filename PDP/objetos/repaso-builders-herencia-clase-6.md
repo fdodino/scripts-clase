@@ -43,6 +43,10 @@ class Persona {
 		nombre = _nombre
 		apellido = _apellido
 	}
+
+	method nombre() = nombre
+	method nombre(_nombre) { nombre = _nombre }
+
 }
 ```
 
@@ -55,8 +59,8 @@ Otra opción sería dejar las referencias variables, no definir un constructor y
 ```xtend
 fixture {
 	const lito = new Persona()
-	lito.nombre = "Jose"
-	lito.apellido = "Guerrero"
+	lito.nombre("Jose")
+	lito.apellido("Guerrero")
 }
 ```
 
@@ -65,8 +69,8 @@ Esto tiene como contra que para inicializar 10 personas, hay 30 lineas de códig
 ```xtend
 fixture {
 	const lito = new Persona()
-	lito.nombre = "Jose"
-	lito.nombre.length()  // Crash boom bang!
+	lito.nombre("Jose")
+	lito.apellido().length()  // Crash boom bang!
 ```
 
 Ah, ah, ah.
@@ -157,10 +161,10 @@ En Wollok no, y el sentido es que yo no pueda libremente usar super para llamar 
 ```xtend
 class AutoViejo inherits Auto {
 	var fechaUltimaLustrada
-	override method esViejo() = super.fechaUltimaLustrada() && (...
+	override method esViejo() = super.fechaUltimaLustrada() < ...
 ```
 
-# Los WKO también heredan
+# Los WKO también pueden heredar de una clase
 
 ¿Qué pasa si tengo un peugeot404 que no entra en la categoría de auto ni de auto clásico? Tiene su propio comportamiento:
 
@@ -172,6 +176,7 @@ Escribimos la definición del wko
 object peugeot404 inherits Auto {
 	var duenio
 	override method esViejo() = super() && duenio.edad() > 50
+}
 ```
 
 Wow! Un objeto puede heredar de una clase, con lo cual
@@ -183,10 +188,62 @@ En un REPL pueden probar
 
 ```bash
 >>> peugeot404
-[kilometraje = 0, ...]
+peugeot404[duenio=null, kilometraje=0]
 ```
 
 ¡Pero ojo! En el TP muchos definieron que joaquin, lucia y luisAlberto heredaban de Musico. Esto puede eventualmente ocurrir más adelante si las definiciones cambian, pero para la entrega 1 no había una necesidad: la herencia no es útil si solamente queremos compartir un atributo en común (ej. el grupo para joaquín y lucía, no hay comportamiento diferencial). **Es necesario que haya más cosas en común para justificar una relación de jerarquía**
+
+# Antes de seguir... objetos con múltiples constructores - Fer
+
+Una fecha de Wollok puede crearse de dos maneras:
+
+- sin parámetros: con la fecha del día
+- con parámetros: día, mes, año
+
+Y este diseño es correcto. No obstante no siempre es útil definir muchos constructores para un objeto. Consideremos este caso:
+
+```xtend
+class Persona {
+	const nombre
+	const apellido
+
+	constructor() {
+		nombre = ""
+		apellido = ""
+	}
+
+	constructor(_nombre) {
+		nombre = _nombre
+		apellido = ""
+	}
+
+	constructor(_nombre, _apellido) {
+		nombre = _nombre
+		apellido = _apellido
+	}
+}
+```
+
+Lo primero que vemos que nos molesta es la repetición de ideas: estamos diciendo cómo inicializar las referencias una y otra vez. Evitamos esa duplicación delegando dentro del constructor:
+
+```xtend
+class Persona {
+	var nombre
+	var apellido
+
+	constructor() = self("", "")
+
+	constructor(_nombre) = self(_nombre, "")
+
+	constructor(_nombre, _apellido) {
+		nombre = _nombre
+		apellido = _apellido
+	}
+}
+```
+
+De todas maneras, **debemos considerar seriamente si esta alternativa no produce confusión en el que quiera instanciar una Persona**. ¿Cuál es el constructor por defecto que debería utilizar? ¿Por qué hay otros constructores? ¿Qué valor agregado tienen esos constructores?
+
 
 # Herencia de constructores - Fer
 
@@ -208,37 +265,41 @@ Ya no es posible construir un auto sin indicar el kilometraje
 
 ```bash
 >>> new Auto()
--- TODO, mensaje de error
+ERROR: Wrong number of arguments. Should be new Auto(_kilometraje) (line: 1)
 >>> const fierrito = new Auto(3000)
+a Auto[kilometraje=3000]
 ```
 
 ¿Qué pasa con el AutoClasico? Mientras no defina un constructor, **hereda los constructores de la superclase**:
 
 ```bash
 >>> const palio = new AutoClasico(3000)
+a AutoClasico[kilometraje=3000, fechaUltimaLustrada=null]
 ```
 
-Esto es algo cómodo que no todos los lenguajes tienen: Java por ejemplo no tiene herencia de constructores.
+Esto es algo cómodo que no todos los lenguajes tienen (por ejemplo Java, que te obliga a definir constructores para las subclases si la superclase modifica el constructor vacío).
 
 ## Redefinición de Constructores
 
 Ahora bien, si queremos escribir un constructor del auto clásico indicando la fecha de la última lustrada, aparece una idea repetida:
 
 ```xtend
-class AutoClasico {
+class AutoClasico inherits Auto {
 	var fechaUltimaLustrada
 
-	constructor(_kilometraje, _fechaUltimaLustrada) {
+	constructor(_kilometraje, _fechaUltimaLustrada) = super() {
 		kilometraje = _kilometraje  // Idea repetida
 		fechaUltimaLustrada = _fechaUltimaLustrada
 	}
+
+	...
 }
 ```
 
 Para esto vamos a definir el constructor en función del constructor del padre:
 
 ```xtend
-class AutoClasico {
+class AutoClasico inherits Auto {
 	var fechaUltimaLustrada
 
 	constructor(_kilometraje, _fechaUltimaLustrada) = super(_kilometraje) {
@@ -252,17 +313,52 @@ De esta manera estamos definiendo el constructor
 - llamando primero al constructor con un parámetro del padre, que puede hacer otras cosas además de inicializar la referencia al kilometraje
 - y luego inicializa la referencia fechaUltimaLustrada
 
-TODO : EXPLICAR MAS
-Los constructores se pisan cuando lo redefinís y solo se pueden llamar en el contexto del constructor
 
-ejemplo con self dentro del constructor
+## Límite para heredar constructores
+
+Repasemos esta última definición
+
+```xtend
+class AutoClasico inherits Auto {
+	var fechaUltimaLustrada
+
+	constructor(_kilometraje, _fechaUltimaLustrada) = super(_kilometraje) {
+		fechaUltimaLustrada = _fechaUltimaLustrada
+	}
+}
+```
+
+¿Cuántos constructores tiene AutoClasico? Solo uno, porque **cuando escribimos un constructor Wollok inhabilita los constructores heredados**. Esto tiene sentido... al escribir un constructor estamos diciendo cómo debe instanciarse e inicializarse un objeto, entonces cualquier definición de la superclase pierde valor (especialmente cuando tenemos referencias constantes)
+
+```bash
+>>> new AutoClasico(1000)
+ERROR: Wrong number of arguments. Should be new AutoClasico(_kilometraje,_fechaUltimaLustrada) (line: 1)
+```
+
+Dentro de la definición del constructor de 2 parámetros de AutoClasico sí estamos llamando al constructor de la superclase, pero no es visible desde afuera (una vez que escribimos el constructor para AutoClasico).
 
 
 # Definición de un WKO cuando hay constructores con parámetros - Juan
 
+Volviendo al objeto peugeot404, tenemos un problema: no hay constructor default, por lo tanto esta definición da error
+
+```xtend
+object peugeot404 inherits Auto {
+	...
+}
+```
+
+Para poder crear el wko necesitamos pasarle valores concretos a un constructor:
 
 ```xtend
 object peugeot404 inherits Auto(100000) {
 	...
 }
+```
+
+Ahora sí podemos usar nuestro wko peugeot404:
+
+```bash
+>>> peugeot404
+peugeot404[duenio=null, kilometraje=100000]
 ```
