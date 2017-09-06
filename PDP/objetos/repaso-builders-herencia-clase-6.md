@@ -224,7 +224,7 @@ Esto es algo cómodo que no todos los lenguajes tienen: Java por ejemplo no tien
 
 Ahora bien, si queremos escribir un constructor del auto clásico indicando la fecha de la última lustrada, aparece una idea repetida:
 
-```
+```xtend
 class AutoClasico {
 	var fechaUltimaLustrada
 
@@ -237,7 +237,7 @@ class AutoClasico {
 
 Para esto vamos a definir el constructor en función del constructor del padre:
 
-```
+```xtend
 class AutoClasico {
 	var fechaUltimaLustrada
 
