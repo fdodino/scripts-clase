@@ -56,7 +56,7 @@ Nos debería quedar entonces la siguiente estructura:
 
 Abrimos el Visual Studio Code y editamos la información del package.json
 
-![image](img/editarPackageJSONVisualStudio)
+![image](./img/editarPackageJSONVisualStudio)
 
 Hay que cambiar estos atributos:
 
