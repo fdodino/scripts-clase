@@ -20,7 +20,7 @@ Para crear un proyecto desde cero vamos a tomar como base un proyecto existente,
 Desde el git bash o la consola nos posicionamos en un directorio y bajamos algún ejemplo base, por ejemplo el que muestra la herencia de clientes:
 
 ```bash
-# git clone https://github.com/uqbar-project/clientesHerencia-es6
+$ git clone https://github.com/uqbar-project/clientesHerencia-es6
 ```
 
 ## Generar nuestro nuevo proyecto
@@ -47,9 +47,9 @@ Nos debería quedar entonces la siguiente estructura:
 + proyectoNuevo (el nombre que quieran)
   + src
   + spec
-- package.json
-- karma.conf.js
-- .travis.yml
+  - package.json
+  - karma.conf.js
+  - .travis.yml
 ```
 
 ## Editar el package.json
@@ -65,4 +65,80 @@ Hay que cambiar estos atributos:
 - keywords
 - repository, y dentro la url
 
-## 
+## Bajar dependencias
+
+Por el momento solo tenemos la cáscara, vamos a bajar las dependencias necesarias para nuestro proyecto escribiendo
+
+```bash
+$ npm install
+```
+
+Esto va a dejar en el directorio node_modules todos los archivos .js con las librerías y frameworks necesarios. La estructura de nuestro proyecto quedaría
+
+```bash
++ proyectoNuevo (el nombre que quieran)
+  + src
+  + spec
+  + node_modules (nuevo)
+  - package.json
+  - karma.conf.js
+  - .travis.yml
+```
+
+## Escribir una primera definición
+
+Dentro de Visual Studio Code, agregamos un archivo clientes.js en el directorio **src** y escribimos el código que queremos, por ejemplo:
+
+```javascript
+// Definición de un cliente
+class Cliente {
+	// Atributos
+	constructor() {
+		this.deuda = 0
+	}
+}
+```
+
+## Escribir el primer test
+
+Dentro de Visual Studio Code, agregamos un archivo clientes.js en el directorio **spec** y escribimos los casos de prueba deseados, algo como:
+
+```javascript
+describe('clientes', () => {
+    let jorge
+  
+    beforeEach(() => {
+      jorge = new Cliente()
+    })
+  
+    it('jorge tiene saldo cero inicialmente', () => {
+        expect(0).toBe(jorge.deuda)
+    }) 
+  })
+```
+
+## Estado de nuestro proyecto
+
+La estructura resultante debería ser:
+
+```bash
++ proyectoNuevo (el nombre que quieran)
+	+ src
+		- clientes.js
+	+ spec
+		- clientes.js
+	+ node_modules (nuevo)
+	- package.json
+	- karma.conf.js
+	- .travis.yml
+```
+
+## Script de prueba
+
+Para probarlo, podemos hacerlo desde la consola Linux, por git bash o desde el Visual Studio Code utilizando la consola integrada (View | Integrated Terminal o el shortcut "Ctrl" + "\`")
+
+```bash
+$ npm test
+```
+
+Con la configuración que tiene el package.json y karma.conf.js, se ejecutan los tests, y veremos un color verde si pasan todos ok o bien los mensajes de error correspondientes.
