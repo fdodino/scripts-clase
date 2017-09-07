@@ -123,14 +123,14 @@ La estructura resultante debería ser:
 
 ```bash
 + proyectoNuevo (el nombre que quieran)
-	+ src
-		- clientes.js
-	+ spec
-		- clientes.js
-	+ node_modules (nuevo)
-	- package.json
-	- karma.conf.js
-	- .travis.yml
+  + src
+    - clientes.js
+  + spec
+    - clientes.js
+  + node_modules (nuevo)
+  - package.json
+  - karma.conf.js
+  - .travis.yml
 ```
 
 ## Script de prueba
@@ -142,3 +142,4 @@ $ npm test
 ```
 
 Con la configuración que tiene el package.json y karma.conf.js, se ejecutan los tests, y veremos un color verde si pasan todos ok o bien los mensajes de error correspondientes.
+
