@@ -44,8 +44,8 @@ class Persona {
 		apellido = _apellido
 	}
 
+	// Solo el getter , sin el setter
 	method nombre() = nombre
-	method nombre(_nombre) { nombre = _nombre }
 
 }
 ```
