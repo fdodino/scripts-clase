@@ -233,12 +233,12 @@ El IDE nos advierte erróneamente sobre la referencia *estado* sin inicializar, 
 
 Necesitamos
 
-- un tamagotchi diferente, que esté hambriento (sale un método ponerseHambriento, y bien si pensaron que es medio un embole escribir un método para cada estado, eso tiene a favor que no conozco la clase concreta que implementa el estado y eso permite que cambie el constructor sin que el test se entere; por otra parte cada estado nuevo implica modificar la interfaz del Tamagotchi)
-- lo mandamos a comer
-- y la parte más controversial es cómo probamos que ahora está contento. 
- - Si los estados fueran wko podríamos preguntar si el estado == contento 
- - Preguntar directamente por la clase Contento es un poco violento, porque eso nos ata  al nombre y a una implementación concreta
- - Vamos a implementar algo casi tan feo como preguntar por la clase, pero sabiendo que el problema es porque el test es incómodo, **el tamagotchi no necesita preguntar por el estado == x o y en ningún momento**
+* un tamagotchi diferente, que esté hambriento (sale un método ponerseHambriento, y bien si pensaron que es medio un embole escribir un método para cada estado, eso tiene a favor que no conozco la clase concreta que implementa el estado y eso permite que cambie el constructor sin que el test se entere; por otra parte cada estado nuevo implica modificar la interfaz del Tamagotchi)
+* lo mandamos a comer
+* y la parte más controversial es cómo probamos que ahora está contento. 
+    * Si los estados fueran wko podríamos preguntar si el estado == contento 
+    * Preguntar directamente por la clase Contento es un poco violento, porque eso nos ata  al nombre y a una implementación concreta
+    * Vamos a implementar algo casi tan feo como preguntar por la clase, pero sabiendo que el problema es porque el test es incómodo, **el tamagotchi no necesita preguntar por el estado == x o y en ningún momento**
 
 ```javascript
 describe "tests del tamagotchi" {
