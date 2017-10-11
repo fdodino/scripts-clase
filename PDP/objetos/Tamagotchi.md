@@ -321,6 +321,12 @@ describe "tests del tamagotchi" {
 	}
 ```
 
+## El diagrama estático
+
+Abrimos el diagrama estático de Wollok y con un simple "Crear asociación" queda cerrado por el momento:
+
+![image](images/tamagotchi-staticDiagram.png)
+
 ## Cómo seguimos
 
 Ahora que lo arrancamos, podés cerrarlo vos.
