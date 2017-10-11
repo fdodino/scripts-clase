@@ -335,4 +335,8 @@ Ahora que lo arrancamos, podés cerrarlo vos.
 
 # El ejercicio
 
-Se puede descargar de https://github.com/wollok/tamagotchi
+Hay dos variantes:
+
+- https://github.com/wollok/tamagotchi : la solución que vinimos explicando, con el BONUS y los tests implementados
+
+- https://github.com/wollok/tamagotchi-game-composicion : la solución con Wollok Game
