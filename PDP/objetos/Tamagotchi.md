@@ -307,7 +307,9 @@ describe "tests del tamagotchi" {
 	var tamagotchiTriste
 	
 	fixture {
-(...)		
+
+        (...)
+
         tamagotchiTriste = new Tamagotchi()
 		tamagotchiTriste.ponerseTriste()
 	}
