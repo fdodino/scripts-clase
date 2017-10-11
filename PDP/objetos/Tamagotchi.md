@@ -229,6 +229,102 @@ class Tamagotchi {
 
 El IDE nos advierte erróneamente sobre la referencia *estado* sin inicializar, ignorémoslo.
 
+## Segundo test
 
+Necesitamos
 
+- un tamagotchi diferente, que esté hambriento (sale un método ponerseHambriento, y bien si pensaron que es medio un embole escribir un método para cada estado, eso tiene a favor que no conozco la clase concreta que implementa el estado y eso permite que cambie el constructor sin que el test se entere; por otra parte cada estado nuevo implica modificar la interfaz del Tamagotchi)
+- lo mandamos a comer
+- y la parte más controversial es cómo probamos que ahora está contento. Vamos a elegir una forma de resolverlo que está a mitad de camino...
 
+```javascript
+describe "tests del tamagotchi" {
+
+	var tamagotchiHambriento
+	
+	fixture {
+		tamagotchiComun = new Tamagotchi()
+		tamagotchiHambriento = new Tamagotchi()
+		tamagotchiHambriento.ponerseHambriento()
+	}
+		
+(...)
+
+	test "comer estando hambriento" {
+		tamagotchiHambriento.comer()
+		assert.that(tamagotchiHambriento.estaContento())
+	}
+}
+
+class Tamagotchi {
+(...)
+	method estaContento() = estado.estaContento()
+}
+
+class Estado {
+(...)	
+	method estaContento() = false
+}
+
+class Contento inherits Estado {
+(...)	
+	override method estaContento() = true
+}
+```
+
+No es una solución que esté mucho mejor que preguntar directamente por la clase, pero esta variante permite que más de un estado nos diga que está contento, algo que por el momento no necesitamos (así que no es algo que podamos utilizar a nuestro favor en una discusión).
+
+## Comer estando triste
+
+Hay dos cosas interesantes:
+
+- necesitamos saber si hace más de un día que está triste. Esto refuerza que fue una buena decisión tener estado (referencias) en los estados del Tamagotchi.
+- si "no es correcto que coma" en caso contrario, eso se puede modelar con una excepción
+
+```javascript
+class Triste inherits Estado {
+	const cuandoSePusoTriste = new Date()
+		
+	method comer() {
+		if (self.estaTristeHaceMucho()) {
+			duenio.ponerseContento()
+		} else {
+			error.throwWithMessage("No es correcto que coma si está triste hace poco")
+		}
+	}
+	
+	method estaTristeHaceMucho() = (new Date() - cuandoSePusoTriste) > 1 
+}
+```
+
+El test necesita de dos tamagotchis, uno triste hace poco y otro triste hace más:
+
+```javascript
+describe "tests del tamagotchi" {
+	var tamagotchiTriste
+	
+	fixture {
+(...)		
+        tamagotchiTriste = new Tamagotchi()
+		tamagotchiTriste.ponerseTriste()
+	}
+
+	test "comer estando triste hace poco" {
+		assert.throwsExceptionWithMessage("No es correcto que coma si está triste hace poco", { tamagotchiTriste.comer() })
+	}
+
+	test "comer estando triste hace mucho" {
+		var triste = tamagotchiTriste.estado()
+		triste.cuandoSePusoTriste(new Date(1, 1, 2016))
+		tamagotchiTriste.comer()
+		assert.that(tamagotchiTriste.estaContento())
+	}
+```
+
+## Cómo seguimos
+
+Ahora que lo arrancamos, podés cerrarlo vos.
+
+# El ejercicio
+
+Se puede descargar de https://github.com/wollok/tamagotchi
