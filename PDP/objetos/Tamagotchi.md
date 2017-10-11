@@ -36,13 +36,13 @@ Como dice nuestro amigo guatemalteco:
 
 ## Un poco de código no viene mal...
 
-Ahora sí podemos comenzar a codificar el método **comer** del Tamagotchi. ¿Es un wko o una clase? Si vamos a jugar con otros tamagotchi, la pregunta que se impone es: ¿tienen diferente comportamiento o todos funcionan igual, más allá de la felicidad que cada uno tenga?
+Ahora sí podemos comenzar a codificar el método **comer** del Tamagotchi. ¿Es un wko o una clase? Si vamos a jugar con otros tamagotchi, la pregunta que se impone es: ¿tienen diferente comportamiento o todos funcionan igual, más allá de la felicidad que cada uno tenga? Por el momento vamos por la segunda opción, los tamagotchis se comportan todos de la misma manera.
 
 ```javascript
 class Tamagotchi {
 
 	method comer() {
-        (...)
+            (...)
 	}	
 	
 }
