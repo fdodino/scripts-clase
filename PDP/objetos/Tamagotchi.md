@@ -42,7 +42,7 @@ Ahora sí podemos comenzar a codificar el método **comer** del Tamagotchi. ¿Es
 class Tamagotchi {
 
 	method comer() {
-        ...
+        (...)
 	}	
 	
 }
@@ -88,7 +88,7 @@ class Contento {
 class Tamagotchi {
 
 	var estado = new Contento(self)
-	...
+(...)
 ```
 
 ## A comer contentos
@@ -100,7 +100,7 @@ Cuando estamos contentos, el nivel de felicidad del tamagotchi aumenta en uno...
 
 ```javascript
 class Contento {
-    ...
+(...)
 
 	method comer() {
 		duenio.ponerseMasFeliz(1)
@@ -111,9 +111,8 @@ Fíjense que recién ahora vamos a implementar la felicidad del tamagotchi (en r
 
 ```javascript
 class Tamagotchi {
-
 	var felicidad = 0
-    ...
+(...)
 
 	method ponerseMasFeliz(cuanto) {
 		felicidad += cuanto
@@ -134,7 +133,6 @@ Necesitamos agregar un getter de la felicidad, y este test:
 import tamagotchi.*
 
 describe "tests del tamagotchi" {
-
 	var tamagotchiComun
 	
 	fixture {
@@ -157,7 +155,6 @@ Cuando come el tamagotchi, si está hambriento se pone contento. Esto implica un
 
 ```javascript
 class Hambriento {
-
 	var duenio
 	
 	constructor(_duenio) {
@@ -174,7 +171,7 @@ class Hambriento {
 
 class Tamagotchi {
    	var estado = new Contento(self)
-    ...
+(...)
 
 	method ponerseContento() {
 		estado = new Contento(self)
@@ -222,7 +219,7 @@ class Tamagotchi {
 		self.ponerseContento()
 	}
 	
-    ...
+(...)
 
 	method ponerseContento() {
 		estado = new Contento(self)
