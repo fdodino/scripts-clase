@@ -308,8 +308,8 @@ describe "tests del tamagotchi" {
 	
 	fixture {
 
-        (...)
-
+            (...)
+            
         tamagotchiTriste = new Tamagotchi()
 		tamagotchiTriste.ponerseTriste()
 	}
