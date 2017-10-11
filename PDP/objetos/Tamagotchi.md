@@ -305,9 +305,7 @@ El test necesita de dos tamagotchis, uno triste hace poco y otro triste hace má
 ```javascript
 describe "tests del tamagotchi" {
 	var tamagotchiTriste
-```
 
-```javascript	
 	fixture {
         tamagotchiTriste = new Tamagotchi()
 		tamagotchiTriste.ponerseTriste()
