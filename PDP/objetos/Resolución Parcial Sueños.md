@@ -237,8 +237,10 @@ Entonces con eso ya podemos corregir el tema de la validación en Sueño múltip
 ```javascript
 class SuenioMultiple inherits Suenio {
 	const suenios = []
-	method cumplir(persona) {
-		suenios.forEach { suenio => suenio.validar(persona) }
+	method doValidar(persona) {
+		suenios.forEach { suenio => suenio.doValidar(persona) }
+	}	
+	method doCumplir(persona) {
 		suenios.forEach { suenio => suenio.doCumplir(persona) }
 	}
 	method felicidonios() = suenios.sum { suenio => suenio.felicidonios() } // los sueños múltiples deben sumar los felicidonios de sus sueños
