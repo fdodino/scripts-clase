@@ -211,10 +211,15 @@ class Suenio {
 		}
 		self.doValidar(persona)
 	}
+	override method felicidonios() // método abstracto
+}
+
+class SuenioSimple {
+	var felicidonios = 0
 	method felicidonios() = felicidonios
 }
 
-class AdoptarHijo inherits Suenio {
+class AdoptarHijo inherits SuenioSimple {
 	const hijosAAdoptar
 	constructor(_hijosAAdoptar) { hijosAAdoptar = _hijosAAdoptar }
 	method doCumplir(persona) {
@@ -226,7 +231,6 @@ class AdoptarHijo inherits Suenio {
 		}
 	}
 }
-
 ```
 
 etc.
