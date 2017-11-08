@@ -173,9 +173,7 @@ Si pasamos las validaciones, aumentamos la felicidad de la persona. La codificac
 
 ## De yapa... modelaron un patrón
 
-La idea de tener un objeto que representa una acción y que puede realizarse (o pasarse como parámetro para que otro la realice) es un patrón de diseño que se llama 
-
-**Command** y que pueden estudiar aparte.
+La idea de tener un objeto que representa una acción y que puede realizarse (o pasarse como parámetro para que otro la realice) es un patrón de diseño que se llama **Command** y que pueden estudiar aparte.
 
 # Punto 2 : Sueño múltiple
 
