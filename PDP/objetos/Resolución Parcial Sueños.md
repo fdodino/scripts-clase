@@ -318,3 +318,5 @@ class Suenio {
 ```
 
 # Diagrama de clases final
+
+![image](http://www.plantuml.com/plantuml/img/hPB1JiCm38RlVOgeN3O41xWXJPKgr8aB6jhGxcxY8KzfN2NfG20UYcVWnKYdTbqx5I6DtE8__dxRiTJWd7X2wzY0-8X4VMHLb9hiPDgxhYeqn9d65rBSQkZcgEczkwP5JfBOGGXzHf7SyqFgznSt-3vzDeFSUGlI9ubGVDyJTw19mSZJzK4S-3nMsbEfKU2RHwC6zaEFNq0hAaOnWemNcz2x3DC8St5TyX8bvMJTCBF1DVazupRIbNQWhGcsOFy5bIekFTW7slAPlD0ysWr85CzKSczzi5wGPbcEpPSOaCv3-4OnMLnTpBExz3QRXg_SUnTel1lGJb1D6vebAFuhQ9Ipo1qwsl4v5KMjTfs8-39knjb55R-QMhg9Zqa_)
