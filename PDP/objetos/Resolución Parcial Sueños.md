@@ -14,9 +14,7 @@ Decisiones que hay que tomar
 - Viajar a Chapadmalal o a Tahití, ¿en qué se diferencian? Solo en el lugar, entonces podemos parametrizar eso.
 - Lo mismo al conseguir un laburo de x plata
 - ojo con mezclar información del sueño y de la persona. La persona quiere recibirse de Abogado, y si no se recibió no estudió abogacía.
-- ¿cómo manejar las validaciones? ¿están asociadas al sueño? Así parece, entonces no tiene sentido buscar una solución general, ya sea con condicionales (ifs) o bien 
-
-con una colección de strategies, porque cada sueño sabe su propia validación
+- ¿cómo manejar las validaciones? ¿están asociadas al sueño? Así parece, entonces no tiene sentido buscar una solución general, ya sea con condicionales (ifs) o con una colección de strategies, porque cada sueño sabe su propia validación
 
 ```javascript
 class Persona {
