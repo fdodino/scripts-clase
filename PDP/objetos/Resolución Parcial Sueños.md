@@ -64,8 +64,7 @@ Tomemos como ejemplo Adoptar un hijo, que es un sueño y por lo tanto debemos ab
 
 ```javascript
 class AdoptarHijo inherits Suenio {
-	const hijosAAdoptar
-	constructor(_hijosAAdoptar) { hijosAAdoptar = _hijosAAdoptar }
+	const hijosAAdoptar // const si los sueños son inmutables, o var si queremos que se modifique
 	method doCumplir(persona) {
 		if (persona.tieneHijos()) {
 			error.throwExceptionWithMessage("No se puede adoptar si se tiene un hijo")
@@ -74,8 +73,6 @@ class AdoptarHijo inherits Suenio {
 	}
 }
 ```
-
-Definimos al sueño como inmutable.
 
 Los métodos que falta definir en Persona son fáciles:
 
@@ -97,7 +94,6 @@ Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como re
 ```javascript
 class Viajar {
 	const lugar
-	... constructor ...
 	method doCumplir(persona) {
 		persona.viajarA(lugar)
 	}
@@ -122,8 +118,7 @@ Recibirse es otra subclase de Sueño, y ya se va haciendo mecánica la resoluci�
 
 ```javascript
 class Recibirse inherits Suenio {
-	const carrera
-	constructor(_carrera) { carrera = _carrera }
+	const carrera  // o var, como dijimos antes si queremos inmutabilidad/mutabilidad
 	method doCumplir(persona) {
 		if (!persona.quiereEstudiar(carrera)) {
 			error.throwExceptionWithMessage(persona.toString() + " no quiere estudiar " + carrera)
@@ -174,9 +169,7 @@ class Suenio {
 }
 ```
 
-Si pasamos las validaciones, aumentamos la felicidad de la persona.
-Hay algo que se nos rompió: sí , efectivamente, los constructores de cada subclase. No importa, es un detalle.
-La codificación de aumentarFelicidad() se las dejamos a ustedes.
+Si pasamos las validaciones, aumentamos la felicidad de la persona. La codificación de aumentarFelicidad() se las dejamos a ustedes.
 
 ## De yapa... modelaron un patrón
 
