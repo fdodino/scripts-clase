@@ -103,7 +103,7 @@ class Persona {
 Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como referencia inmutable el lugar adonde queremos ir. No tiene validaciones, solo debe incorporar a la lista de lugares visitados por la persona el lugar adonde quería ir.
 
 ```javascript
-class Viajar {
+class Viajar inherits Suenio {
 	const lugar
 	
 	method validar(persona) {
