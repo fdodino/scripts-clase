@@ -32,7 +32,7 @@ Para modelar los sueños cumplidos, podríamos tener un flag booleano en Sueño,
 
 ## Validaciones generales del sueño
 
-Para cumplir un sueño, vamos a incorporar que el sueño debe estar pendiente para la persona, tendremos una clase Sueño para poner las validaciones generales:
+El sueño debe estar pendiente para la persona, ubicaremos en una superclase Sueño las validaciones generales:
 
 ```javascript
 class Suenio {
