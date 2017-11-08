@@ -182,11 +182,9 @@ El sueño múltiple implica poder tener un conjunto de sueños, de manera que ah
 - el sueño común o simple
 - el sueño agrupado o compuesto
 
-Ah, claro, finalmente tenemos una jerarquía de ramas y hojas polimórficas, donde las ramas son sueños múltiples y las hojas los sueños simples, lo que pueden haber 
+Ah, claro, finalmente tenemos una jerarquía de ramas y hojas polimórficas, donde las ramas son sueños múltiples y las hojas los sueños simples, lo que pueden haber visto que es un **Composite pattern**.
 
-visto que es un **Composite pattern**.
-
-¿Qué es lo más improtante? Mantener la misma interfaz entre sueño compuesto y simple. Es decir, buscamos el _polimorfismo_
+¿Qué es lo más importante? Mantener la misma interfaz entre sueño compuesto y simple. Es decir, buscamos el _polimorfismo_
 
 
 ```javascript
