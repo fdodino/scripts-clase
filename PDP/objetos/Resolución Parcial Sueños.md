@@ -247,7 +247,7 @@ class SuenioMultiple inherits Suenio {
 
 De esta manera, si alguno de los sueños no se puede cumplir estamos impidiendo que se cumplan todos los que forman el sueño múltiple.
 
-#  Punto 3 y el 6 : Tipos de personas
+#  Punto 3 y 6 : Tipos de personas
 
 Los tipos de personas pueden ser
 
@@ -292,7 +292,8 @@ Para saber si una persona es feliz, le preguntamos a la persona... este punto es
 
 ```javascript
 class Persona {
-	method esFeliz() = felicidonios > sueniosPendientes.sum { suenio => suenio.felicidonios() } // sirve así para sueños simples o múltiples
+	method esFeliz() = felicidonios > sueniosPendientes.sum { suenio => suenio.felicidonios() } 
+	// sirve así para sueños simples o múltiples
 }
 ```
 
