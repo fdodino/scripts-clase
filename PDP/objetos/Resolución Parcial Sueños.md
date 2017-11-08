@@ -191,7 +191,7 @@ Ah, claro, finalmente tenemos una jerarquía de ramas y hojas polimórficas, don
 class SuenioMultiple inherits Suenio {
 	const suenios = []
 	method cumplir(persona) {
-		suenios.forEach [ suenio => suenio.cumplir(persona) ]
+		suenios.forEach { suenio => suenio.cumplir(persona) }
 	}
 }
 ```
@@ -238,10 +238,10 @@ Entonces con eso ya podemos corregir el tema de la validación en Sueño múltip
 class SuenioMultiple inherits Suenio {
 	const suenios = []
 	method cumplir(persona) {
-		suenios.forEach [ suenio => suenio.validar(persona) ]
-		suenios.forEach [ suenio => suenio.doCumplir(persona) ]
+		suenios.forEach { suenio => suenio.validar(persona) }
+		suenios.forEach { suenio => suenio.doCumplir(persona) }
 	}
-	method felicidonios() = suenios.sum { suenio => suenio.felicidonios() }
+	method felicidonios() = suenios.sum { suenio => suenio.felicidonios() } // los sueños múltiples deben sumar los felicidonios de sus sueños
 }
 ```
 
