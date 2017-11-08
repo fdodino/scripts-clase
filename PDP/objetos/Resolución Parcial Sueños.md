@@ -255,13 +255,7 @@ Los tipos de personas pueden ser
 - alocados
 - obsesivos
 
-La clave es cuando dice "pueden aparecer a futuro nuevos tipos de persona".  Y el punto 6 nos pide que podamos cambiar los tipos de persona, entonces queremos que no 
-
-esté atado a la jerarquía de Persona, sino tener dos jerarquías por separado: las personas y los tipos de personalidad. La composición nos permite que aparezca el 
-
-polimorfismo y por ende la posibilidad de intercambiarlos (y termina resolviéndose mediante un **Strategy pattern**).
-
-Comenzamos resolviendo el requerimiento principal: "Cumplir el sueño más preciado para una persona".
+Al decir "pueden aparecer a futuro nuevos tipos de persona" eso implica que una solución con ifs (condicionales) no solo implica una baja cohesión en Persona, sino la seguridad de que ese método va a crecer a futuro. Y el punto 6 nos pide que podamos cambiar los tipos de persona, entonces queremos que no esté atado a la jerarquía de Persona, sino tener dos jerarquías por separado: las personas y los tipos de personalidad. La composición nos permite que aparezca el polimorfismo y por ende la posibilidad de intercambiarlos, así termina apareciendo el **Strategy pattern**.
 
 ```javascript
 class Persona {
