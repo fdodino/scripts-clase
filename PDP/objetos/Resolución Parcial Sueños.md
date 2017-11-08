@@ -221,7 +221,6 @@ class SuenioSimple {
 
 class AdoptarHijo inherits SuenioSimple {
 	const hijosAAdoptar
-	constructor(_hijosAAdoptar) { hijosAAdoptar = _hijosAAdoptar }
 	method doCumplir(persona) {
 		persona.agregarHijos(hijosAAdoptar)
 	}
