@@ -9,9 +9,7 @@ El enunciado es [éste](https://docs.google.com/document/d/1vtru1ysNDA5N3eVt33hD
 
 Decisiones que hay que tomar
 
-- ¿el sueño es una abstracción? Sí, porque en algún momento soñamos con lograr algo y eventualmente ese sueño puede cumplirse o no, o pasárselo a nuestros hijos (el 
-
-famoso mandato)
+- ¿el sueño es una abstracción? Sí, porque en algún momento soñamos con lograr algo y eventualmente ese sueño puede cumplirse o no, o pasárselo a nuestros hijos (el famoso mandato)
 - ¿el sueño es WKO o clase? Para recibirse de una carrera en particular, necesitamos referencias a la carrera. Entonces necesitamos que sean instancias de **clases**
 - Viajar a Chapadmalal o a Tahití, ¿en qué se diferencian? Solo en el lugar, entonces podemos parametrizar eso.
 - Lo mismo al conseguir un laburo de x plata
