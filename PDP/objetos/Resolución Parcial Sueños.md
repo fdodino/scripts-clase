@@ -14,61 +14,70 @@ Decisiones que hay que tomar
 - Viajar a Chapadmalal o a Tahití, ¿en qué se diferencian? Solo en el lugar, entonces podemos parametrizar eso.
 - Lo mismo al conseguir un laburo de x plata
 - ojo con mezclar información del sueño y de la persona. La persona quiere recibirse de Abogado, y si no se recibió no estudió abogacía.
-- ¿cómo manejar las validaciones? ¿están asociadas al sueño? Así parece, entonces no tiene sentido buscar una solución general, ya sea con condicionales (ifs) o con una colección de strategies, porque cada sueño sabe su propia validación
+- ¿cómo manejar las validaciones? Algunas son generales, las podemos empezar ¿están asociadas al sueño? Así parece, entonces no tiene sentido buscar una solución general, ya sea con condicionales (ifs) o con una colección de strategies, porque cada sueño sabe su propia validación
 
 ```javascript
 class Persona {
-    const sueniosCumplidos = []
-	const sueniosPendientes = []
+	const suenios = []
 	
 	method cumplir(suenio) {
-		suenio.cumplir(self)
-		sueniosPendientes.remove(suenio)
-		sueniosCumplidos.add(suenio)
-	}
-```
-
-Para modelar los sueños cumplidos, podríamos tener un flag booleano en Sueño, eso es tan válido como tener dos colecciones con los estados diferentes.
-
-## Validaciones generales del sueño
-
-El sueño debe estar pendiente para la persona, ubicaremos en una superclase Sueño las validaciones generales:
-
-```javascript
-class Suenio {
-	method cumplir(persona) {
-		if (!persona.tieneSuenioPendiente(self)) {
-			error.throwExceptionWithMessage("El sueño " + self + " no está pendiente para " + persona)
+		if (!self.sueniosPendientes().contains(suenio)) {
+			error.throwExceptionWithMessage("El sueño " + suenio + " no está pendiente")
 		}
-		...
+		suenio.cumplir(self)
 	}
+	
+	method sueniosPendientes() = suenios.filter { suenio => suenio.estaPendiente() ]
+}
+
+class Suenio {
+	var cumplido = false
+	method estaPendiente() = !cumplido
 }
 ```
+
+Para modelar los sueños cumplidos tendremos un flag booleano en Sueño. Otra opción podría ser tener dos colecciones con los estados diferentes, algo totalmente válido.
+
+## Cumplir un sueño
+
+Para cumplir un sueño, ya pasamos las validaciones generales, tenemos entonces tres pasos:
+
+- validar
+- realizar el sueño
+- generar el efecto sobre el sueño (cumplido) y la persona (felicidonios)
 
 Lo que sigue depende de cada sueño, por lo que podemos aplicar un **Template method**:
 
 ```javascript
 class Suenio {
+	var felicidonios = 0
+	
 	method cumplir(persona) {
-		if (!persona.tieneSuenioPendiente(self)) {
-			error.throwExceptionWithMessage("El sueño " + self + " no está pendiente para " + persona)
-		}
-		self.doCumplir(persona)
+		self.validar(persona)
+		self.realizar(persona)
+		cumplido = true
+		persona.sumarFelicidad(felicidonios)
 	}
 }
 ```
 
+Los métodos validar y realizar son abstractos, aunque validar podría también ser un método vacío, para cuando algún sueño no tenga validaciones (es más difícil justificar que el método relizar no tenga comportamiento, entonces qué sentido tendría modelar una subclase de Sueño).
+
 ## Adopción 
 
-Tomemos como ejemplo Adoptar un hijo, que es un sueño y por lo tanto debemos abstraerlo como subclase de sueño. ¿Qué hace el doCumplir?
+Tomemos como ejemplo _adoptar un hijo_, que es un sueño y por lo tanto debemos abstraerlo como subclase de sueño. ¿Cómo funciona la validación y el cumplimiento?
 
 ```javascript
 class AdoptarHijo inherits Suenio {
 	const hijosAAdoptar // const si los sueños son inmutables, o var si queremos que se modifique
-	method doCumplir(persona) {
+	
+	method validar(persona) {
 		if (persona.tieneHijos()) {
 			error.throwExceptionWithMessage("No se puede adoptar si se tiene un hijo")
 		}
+	}
+	
+	method realizar(persona) {
 		persona.agregarHijos(hijosAAdoptar)
 	}
 }
@@ -80,7 +89,9 @@ Los métodos que falta definir en Persona son fáciles:
 class Persona {
 	var cantidadHijos = 0
 	...
+	
 	method tieneHijos() = cantidadHijos > 0
+	
 	method agregarHijo(cantidad) {
 		cantidadHijos += cantidad
 	}
@@ -94,7 +105,12 @@ Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como re
 ```javascript
 class Viajar {
 	const lugar
-	method doCumplir(persona) {
+	
+	method validar(persona) {
+		// Sin comportamiento
+	}
+	
+	method realizar(persona) {
 		persona.viajarA(lugar)
 	}
 }
@@ -106,6 +122,7 @@ El método viajarA() en Persona es también fácil:
 class Persona {
 	const lugaresVisitados = []
 	...
+	
 	method viajarA(lugar) {
 		lugaresVisitados.add(lugar)
 	}
@@ -119,26 +136,33 @@ Recibirse es otra subclase de Sueño, y ya se va haciendo mecánica la resoluci�
 ```javascript
 class Recibirse inherits Suenio {
 	const carrera  // o var, como dijimos antes si queremos inmutabilidad/mutabilidad
-	method doCumplir(persona) {
+	
+	method validar(persona) {
 		if (!persona.quiereEstudiar(carrera)) {
 			error.throwExceptionWithMessage(persona.toString() + " no quiere estudiar " + carrera)
 		}
 		if (persona.completoCarrera(carrera)) {
 			error.throwExceptionWithMessage(persona.toString() + " ya completó los estudios de " + carrera)
 		}
+	}
+	
+	method realizar(persona) {
 		persona.completarCarrera(carrera)
 	}
 }
 ```
 
-Más métodos en Persona fáciles:
+Más métodos fáciles y aburridos definidos en Persona:
 
 ```javascript
 class Persona {
 	const carrerasQueQuiereEstudiar = []
 	const carrerasCompletadas = []
+	
 	method quiereEstudiar(carrera) = carrerasQueQuiereEstudiar.contains(carrera)
+	
 	method completoCarrera(carrera) = carrerasCompletadas.contains(carrera)
+	
 	method completarCarrera(carrera) {
 		carrerasCompletadas.add(carrera)
 	}
@@ -147,29 +171,6 @@ class Persona {
 
 ¿Y los setters y getters de los atributos de persona? No se escriben.
 En el parcial **no se escriben**.
-
-## ¡Los felicidonios!
-
-Casi nos olvidamos, "cada sueño brinda a la persona que lo cumple un nivel de felicidad o felicidonios". ¿Dónde ubicamos esta responsabilidad?
-
-- En la clase sueño debemos decirle a la persona que sume felicidad...
-- ... que sale de una referencia que todos los sueños deben tener
-
-
-```javascript
-class Suenio {
-	var felicidonios = 0
-	method cumplir(persona) {
-		if (!persona.tieneSuenioPendiente(self)) {
-			error.throwExceptionWithMessage("El sueño " + self + " no está pendiente para " + persona)
-		}
-		self.doCumplir(persona)
-		persona.aumentarFelicidad(felicidonios)
-	}
-}
-```
-
-Si pasamos las validaciones, aumentamos la felicidad de la persona. La codificación de aumentarFelicidad() se las dejamos a ustedes.
 
 ## De yapa... modelaron un patrón
 
@@ -184,69 +185,45 @@ El sueño múltiple implica poder tener un conjunto de sueños, de manera que ah
 
 Ah, claro, finalmente tenemos una jerarquía de ramas y hojas polimórficas, donde las ramas son sueños múltiples y las hojas los sueños simples, lo que pueden haber visto que es un **Composite pattern**.
 
-¿Qué es lo más importante? Mantener la misma interfaz entre sueño compuesto y simple. Es decir, buscamos el _polimorfismo_
+¿Qué es lo más importante? Mantener la misma interfaz entre sueño compuesto y simple. Es decir, buscamos el _polimorfismo_. El único tema es que Suenio tiene una referencia _felicidonios_ que el sueño múltiple no tiene. Entonces generamos una jerarquía nueva:
 
+- Sueño 
+ - Sueño simple
+ - Sueño compuesto
 
-```javascript
-class SuenioMultiple inherits Suenio {
-	const suenios = []
-	method cumplir(persona) {
-		suenios.forEach { suenio => suenio.cumplir(persona) }
-	}
-}
-```
-
-Claro, el problema es que "si alguno de los sueños no se puede cumplir debería tirar error". Esto nos obliga a cambiar ligeramente la implementación que teníamos:
+En Sueño eliminamos la referencia a felicidonios y utilizamos un método felicidonios que ahora es abstracto.
 
 ```javascript
 class Suenio {
 	method cumplir(persona) {
 		self.validar(persona)
-		self.doCumplir(persona)
-		persona.aumentarFelicidad(self.felicidonios()) // lo reemplazamos por un mensaje que puede redefinir Sueño múltiple
+		self.realizar(persona)
+		cumplido = true
+		persona.sumarFelicidad(self.felicidonios())
 	}
-	method validar(persona) {
-		if (!persona.tieneSuenioPendiente(self)) {
-			error.throwExceptionWithMessage("El sueño " + self + " no está pendiente para " + persona)
-		}
-		self.doValidar(persona)
-	}
-	override method felicidonios() // método abstracto
+	
+	method felicidonios()
 }
+
 
 class SuenioSimple {
 	var felicidonios = 0
 	method felicidonios() = felicidonios
 }
 
-class AdoptarHijo inherits SuenioSimple {
-	const hijosAAdoptar
-	method doCumplir(persona) {
-		persona.agregarHijos(hijosAAdoptar)
-	}
-	method doValidar(persona) {
-		if (persona.tieneHijos()) {
-			error.throwExceptionWithMessage("No se puede adoptar si se tiene un hijo")
-		}
-	}
-}
-```
-
-etc.
-
-
-Entonces con eso ya podemos corregir el tema de la validación en Sueño múltiple:
-
-```javascript
 class SuenioMultiple inherits Suenio {
 	const suenios = []
-	method doValidar(persona) {
-		suenios.forEach { suenio => suenio.doValidar(persona) }
-	}	
-	method doCumplir(persona) {
-		suenios.forEach { suenio => suenio.doCumplir(persona) }
+	
+	method felicidonios() = suenios.sum { suenio => suenio.felicidonios() } 
+	// los sueños múltiples deben sumar los felicidonios de sus sueños
+
+	method validar(persona) {
+		suenios.forEach { suenio => suenio.validar(persona) }
 	}
-	method felicidonios() = suenios.sum { suenio => suenio.felicidonios() } // los sueños múltiples deben sumar los felicidonios de sus sueños
+	
+	method realizar(persona) {
+		suenios.forEach { suenio => suenio.realizar(persona) }
+	}	
 }
 ```
 
