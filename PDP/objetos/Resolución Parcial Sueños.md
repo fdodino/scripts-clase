@@ -92,9 +92,7 @@ class Persona {
 
 ## Viajar a un lugar
 
-Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como referencia inmutable el lugar adonde queremos ir. No tiene validaciones, solo debe 
-
-incorporar a la lista de lugares visitados pro la persona el lugar adonde quería ir.
+Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como referencia inmutable el lugar adonde queremos ir. No tiene validaciones, solo debe incorporar a la lista de lugares visitados por la persona el lugar adonde quería ir.
 
 ```javascript
 class Viajar {
@@ -322,7 +320,7 @@ Para determinar si una persona ambiciosa, hay que delegar...
 ```javascript
 class Persona {
 	method esAmbiciosa() = self.suenios().filter { suenio => suenio.esAmbicioso() } > 3
-	method suenios() = sueniosPendientes().union(sueniosCumplidos)
+	method suenios() = sueniosPendientes + sueniosCumplidos
 }
 
 class Suenio {
