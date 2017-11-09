@@ -94,7 +94,7 @@ class Persona {
 	
 	method tieneHijos() = cantidadHijos > 0
 	
-	method agregarHijo(cantidad) {
+	method agregarHijos(cantidad) {
 		cantidadHijos += cantidad
 	}
 }
