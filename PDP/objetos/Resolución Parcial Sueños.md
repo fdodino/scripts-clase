@@ -285,8 +285,8 @@ Para determinar si una persona ambiciosa, hay que delegar...
 
 ```javascript
 class Persona {
-	method esAmbiciosa() = self.suenios().filter { suenio => suenio.esAmbicioso() } > 3
-	method suenios() = sueniosPendientes + sueniosCumplidos
+	method esAmbiciosa() = self.sueniosAmbiciosos().size() > 3
+	method sueniosAmbiciosos() = suenios.filter { suenio => suenio.esAmbicioso() }
 }
 
 class Suenio {
