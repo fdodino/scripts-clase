@@ -27,7 +27,7 @@ class Persona {
 		suenio.cumplir(self)
 	}
 	
-	method sueniosPendientes() = suenios.filter { suenio => suenio.estaPendiente() ]
+	method sueniosPendientes() = suenios.filter { suenio => suenio.estaPendiente() }
 }
 
 class Suenio {
