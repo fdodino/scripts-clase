@@ -9,12 +9,12 @@ El enunciado es [éste](https://docs.google.com/document/d/1vtru1ysNDA5N3eVt33hD
 
 Decisiones que hay que tomar
 
-- ¿el sueño es una abstracción? Sí, porque en algún momento soñamos con lograr algo y eventualmente ese sueño puede cumplirse o no, o pasárselo a nuestros hijos (el famoso mandato)
-- ¿el sueño es WKO o clase? Para recibirse de una carrera en particular, necesitamos referencias a la carrera. Entonces necesitamos que sean instancias de **clases**
-- Viajar a Chapadmalal o a Tahití, ¿en qué se diferencian? Solo en el lugar, entonces podemos parametrizar eso.
-- Lo mismo al conseguir un laburo de x plata
-- ojo con mezclar información del sueño y de la persona. La persona quiere recibirse de Abogado, y si no se recibió no estudió abogacía.
-- ¿cómo manejar las validaciones? Algunas son generales, las podemos empezar ¿están asociadas al sueño? Así parece, entonces no tiene sentido buscar una solución general, ya sea con condicionales (ifs) o con una colección de strategies, porque cada sueño sabe su propia validación
+- ¿el sueño es una abstracción? Sí, porque en algún momento soñamos con lograr algo y eventualmente ese sueño podemos cumplirlo o tenerlo pendiente
+- ¿el sueño es WKO o clase? Para recibirse de una carrera en particular, necesitamos referenciar a la carrera. Entonces cada sueño se modela como una instancia de **la clase Sueño**
+- Viajar a Chapadmalal o a Tahití, ¿en qué se diferencian? Solo en el lugar, entonces podemos parametrizar eso (con una referencia o variable de instancia).
+- Lo mismo al conseguir un laburo de _x_ plata
+- ojo con mezclar información del sueño y de la persona. Una cosa es querer adoptar un hijo, otro es cuántos hijos tiene. Lo mismo con los felicidonios: las personas tienen felicidonios, los sueños saben cuántos felicidonios proporcionan a la persona cuando los cumple.
+- ¿cómo manejar las validaciones? Algunas son generales (el sueño debe estar pendiente para esa persona), otras están asociadas al sueño. 
 
 ```javascript
 class Persona {
