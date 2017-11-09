@@ -102,7 +102,7 @@ class Persona {
 
 ## Viajar a un lugar
 
-Nuevamente podemos tener un Viaje, que es subclase de Sueño y que tiene como referencia inmutable el lugar adonde queremos ir. No tiene validaciones, solo debe incorporar a la lista de lugares visitados por la persona el lugar adonde quería ir.
+Viajar a un lugar es una subclase de Sueño y sabe el lugar adonde queremos ir (en nuestro caso lo definimos constante porque queremos modelar un sueño inmutable). No tiene validaciones, solo debe incorporar a la lista de lugares visitados por la persona el lugar adonde quería ir.
 
 ```javascript
 class Viajar inherits Suenio {
