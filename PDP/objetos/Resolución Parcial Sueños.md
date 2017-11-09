@@ -200,7 +200,7 @@ class Suenio {
 	method cumplir(persona) {
 		self.validar(persona)
 		self.realizar(persona)
-		cumplido = true
+		self.cumplir()
 		persona.sumarFelicidad(self.felicidonios())
 	}
 	
