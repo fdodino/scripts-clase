@@ -272,7 +272,7 @@ Como los strategies no necesitan estado (referencias), son stateless y se pueden
 
 # Punto 4
 
-Para saber si una persona es feliz, le preguntamos a la persona... este punto es tranquilo una vez que encaramos los primeros puntos.
+Para saber si una persona es feliz, le preguntamos a la persona... 
 
 ```javascript
 class Persona {
