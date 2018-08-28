@@ -3,7 +3,7 @@
 por Fernando Dodino - Agosto 2017
 Distribuido con licencia [Creative commons Share-a-like](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 
-# Resumen Lenguajes Prototyped-based OO
+# Resumen Lenguajes OO Prototyped-based
 
 > **Advertencia:** esto puede ser un poco fumado.
 
