@@ -143,7 +143,7 @@ Pepita energia: $27.0
 
 Ozono (anteriormente llamado LOOP: Learning Object-Oriented Programming) fue una herramienta desarrollada por algunos docentes de esta facultad que permitía el trabajo con objetos antes de utilizar otras herramientas de Smalltalk.
 
-Pueden ver [en esta página](http://www.pdep.com.ar/Home/software/software-pharo/object-browser-ultima-version) una demostración funcionando (por lo general el primer TP de la materia se hacía en este entorno).
+Pueden ver [en esta página](http://www.pdep.com.ar/software/software-pharo/object-browser-ultima-version) una demostración funcionando (por lo general el primer TP de la materia se hacía en este entorno).
 
 ## Otras apariciones de object
 
