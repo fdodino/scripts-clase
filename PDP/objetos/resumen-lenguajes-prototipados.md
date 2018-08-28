@@ -27,6 +27,9 @@ Fue también el primero que introdujo la idea de manipulación enteramente visua
 
 ![morphic](http://handbook.selflanguage.org/2017.1/_images/Figure1.png)
 
+Te dejamos dos videos que muestran \
+- [cómo funciona la delegación](https://www.youtube.com/watch?v=NYEKO7JcmLE) y 
+- [cómo crear una cuenta bancaria](https://www.youtube.com/watch?v=5Jhi5yN9S1o)
 
 ## Javascript
 
