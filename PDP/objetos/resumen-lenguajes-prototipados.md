@@ -147,6 +147,6 @@ Pueden ver [en esta página](http://www.pdep.com.ar/software/software-pharo/obje
 
 ## Otras apariciones de object
 
-En [Scala](www.scala-lang.org) aparece la noción de objeto pero está asociada a otra idea que contaremos más adelante.
+En [Scala](http://www.scala-lang.org) aparece la noción de objeto pero está asociada a otra idea que contaremos más adelante.
 
 
