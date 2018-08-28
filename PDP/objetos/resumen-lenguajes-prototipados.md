@@ -3,7 +3,9 @@
 por Fernando Dodino - Agosto 2017
 Distribuido con licencia [Creative commons Share-a-like](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 
-# Repaso Objetos (30 minutos fumados en cañón)
+# Resumen Lenguajes Prototyped-based OO
+
+> **Advertencia:** esto puede ser un poco fumado.
 
 Hemos trabajado hasta aquí la noción de objeto como la primera forma de definir conceptos, agrupar comportamiento y encapsular estado.
 Al objeto le puedo enviar un mensaje y el method lookup se resuelve porque el objeto receptor es el que responde al mensaje.
