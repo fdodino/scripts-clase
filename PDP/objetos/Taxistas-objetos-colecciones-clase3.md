@@ -28,7 +28,7 @@ Fue también el primero que introdujo la idea de manipulación enteramente visua
 
 ## Javascript
 
-Un tiempo más tarde nació Javascript (el [01/01/1997](https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%201st%20edition,%20June%201997.pdf)), que popularizó el término prototype-based para los lenguajes que trabajan exclusivamente con objetos (al menos hasta la versión ES6 que incorporó la idea de clases). Vamos a hacer el ejemplo de pepita en javascript, que pueden probar en la consola de cualquier navegador (presionando F12)
+Un tiempo más tarde nació Javascript (el [01/01/1997](https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%201st%20edition,%20June%201997.pdf)), que popularizó el término _prototype-based_ para los lenguajes que trabajan exclusivamente con objetos (al menos hasta la versión ES6 que incorporó las clases como _syntatic sugar_). Vamos a hacer el ejemplo de pepita en javascript, que pueden probar en la consola de cualquier navegador (presionando F12)
 
 ```javascript
 // pepita es un objeto...
