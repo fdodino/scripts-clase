@@ -16,6 +16,7 @@
 
 - Qué es Gradle => https://wiki.uqbar.org/wiki/articles/gradle.html
   reifica un proyecto, maneja dependencias (repositorios), y automatiza tareas (mediante plugins)
+- New project > Gradle Kotlin, vamos a reemplazar el default por [este archivo](./clase1/build.gradle.kts). Activamos el build automático.
 - Componente = Artefacto = Proyecto, ponerle groupId + artifactId + version (no meterse en versionado semántico)
 - Maven Central vs. otros repositorios
 - Probar descargar una dependencia que no tengamos en el proyecto => veamos que la guarda en /home/dodain/.gradle/caches/modules-2/files-2.1
@@ -71,6 +72,7 @@ class Cliente() {
   - Luego el test de una flota con muchos autos para ver cuándo no puede cobrar un siniestro.
   - Y cerramos con una flota con pocos autos para cuando puede...
   - ... y cuando no puede cobrar un siniestro
+  - una posible solución: [los tests](./clase1/CobroSiniestroSpec.kt) y [la jerarquía de cliente](./clase1/Cliente.kt)
 - AAA => Arrange / Act / Assert si no lo vimos antes
 - Repasamos: clases de equivalencia para que los tests tengan sentido, valores límite para elegir cuánta deuda y cuántos autos elegir.
 - Evitar duplicaciones, incluso con los nombres de los describes ("flota con pocos autos vs. flota con 5 autos)
