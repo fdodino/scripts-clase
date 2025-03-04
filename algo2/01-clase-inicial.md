@@ -4,13 +4,15 @@
 
 - De qué se trata la materia: Diseño, qué es diseñar, armar la columna vertebral: Algo1, Algo2, Algo3, PHM y tangencialmente Bases de Datos, PHM, Labo 1 y Labo 2
 - Metáfora asociada: ya saben mover las piezas del ajedrez (Algo1), ahora vamos a ver distintas interacciones, que forman soluciones conocidas (patrones). También vamos a ver cómo diseñar cuando tenemos componentes externos que escapan a nuestro control y algunas técnicas de testeo unitario.
-- El lenguaje es Kotlin, que van a ver que se parece mucho a Wollok.
+- El lenguaje es Kotlin, que van a ver que se parece mucho a Wollok. Estimamos que en 3 semanas van a sentirse cómodes.
 - La materia es tanto teórica como práctica. Necesitan aprobar el TP para poder rendir el parcial.
 - Modalidad del parcial: lo hacen en el aula, se los corregimos y lo tienen que defender en un coloquio. Es importante que puedan defender lo que hicieron, si no saben por qué hicieron algo nosotros no podemos aprobarles la materia.
 - Algo2 no traiciona a Algo1, lo complementa.
 - Algo2 es la base para lo que sigue que es mucho más tecnológico.
 - Ojo! Otros años hemos guardado la nota, Secretaría Académica ya nos bajó línea de que no podemos hacerlo porque tenemos una cantidad de matriculados que no se sostiene. Tienen que ir a hablar a Alumnos para que los inscriban oficialmente en Guaraní, no podemos guardar nota porque estamos yendo en contra de la política que nos comunicaron.
 - Presentación de ayudantes.
+- Vemos un poco el sitio: antes de cada clase vamos a subir el material, aprovechen eso. Secciones importantes: la página de seguimiento, la de status de tu cursada, la planificación (alto nivel), la de TP (donde vamos a subir el enunciado), material: apuntes, ejemplos, software (para ponerse canchero con Kotlin), y videos => que explican los conceptos que vamos a ver.
+- el martes **no es para ver qué pasa**, no pueden venir solo con dudas, hay que trabajar durante la semana y llevar avances porque vamos a tener checkpoints, son instancias de aprendizaje pero para eso hay que meterle pila. El TP es un trabajo tanto grupal como individual.
 
 ## 19:00 -> Les damos el enunciado de Seguros. Creamos un proyecto.
 
