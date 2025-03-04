@@ -64,8 +64,15 @@ class Cliente() {
 ## 20:30 Seguimos con el ejemplo del Seguro una hora más
 
 - Evolucionamos hasta resolver https://wiki.uqbar.org/wiki/articles/kotest-testeo-unitario-avanzado.html
-- AAA => Arrange / Act / Assert
-- Clases de equivalencia para que los tests tengan sentido
+  - Primero, un test para verificar que un cliente no moroso puede cobrar un siniestro. Eso hace que falle el segundo test.
+  - Lo corregimos poniendo una variable saldo (protected/private/public), vemos los métodos (fun) y también puede que surja el constructor, o bien un Act en el test y hablemos de AAA (Arrange, Act, Assert). Si no lo hablamos después.
+  - Pasamos a una flota, tenemos que ver qué hacemos. Es la flota parte de un auto? Comparten algo más que la deuda? Es suficiente para construir una solución con herencia? Ver qué eligen, si el if o la herencia. Hablar de que el if es una solución que tiene cosas buenas: es simple y barata cuando no tenemos información suficiente, pero que hay que hacer las preguntas necesarias al usuario. Si hay tiempo podríamos elegir resolverlo con ifs y después pasar a una solución con herencia sin cambiar los tests y viendo que siguen funcionando.
+  - Hacemos el test de una flota con muchos autos para ver cuándo puede cobrar un siniestro.
+  - Luego el test de una flota con muchos autos para ver cuándo no puede cobrar un siniestro.
+  - Y cerramos con una flota con pocos autos para cuando puede...
+  - ... y cuando no puede cobrar un siniestro
+- AAA => Arrange / Act / Assert si no lo vimos antes
+- Repasamos: clases de equivalencia para que los tests tengan sentido, valores límite para elegir cuánta deuda y cuántos autos elegir.
 - Evitar duplicaciones, incluso con los nombres de los describes ("flota con pocos autos vs. flota con 5 autos)
 - isolationMode = IsolationMode.InstancePerTest => importante para limpiar el estado de todo el describe antes de ejecutar los tests
 - Se pueden anidar describes, ojo con el estado de cada describe, tener factory methods es más prolijo y fácil de mantener
