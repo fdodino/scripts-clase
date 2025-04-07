@@ -53,6 +53,21 @@ en este caso definimos que cuando traemos un candidato queremos saber a qué par
 - si estamos en el modelo relacional, hay que tener una primary key, mediante la anotación @Id
 - cada @Id define 4 posibles estrategias: `@GeneratedValue(strategy = GenerationType.Auto)` es la default donde JPA define el mecanismo en base al dialecto del motor. Podés usar IDENTITY para MySQL / SQLServer, lo mismo que SEQUENCE para PostgreSQL / Oracle. En estos dos casos el autoincremento lo resuelve la base de datos. Con TABLE para que se genere una tabla donde almacenamos el último número para cada entidad, o la SEQUENCE. Para más información podés ver [este sencillo artículo](https://medium.com/@bytewise010/spring-boot-identifiers-30454276449a).
 - `@Column(length = 50)` lo usamos para `lateinit var descripcion: String` porque necesitamos definir la longitud. Probemos sacarle la anotación, y lo crea igual pero con una longitud de 255
+- vemos la base, las relaciones que crea (zona_candidates, pareciera una many-to-many)
+- si agregamos esta configuración
+
+```kt
+@OneToMany
+@JoinColumn(name = "zona_id")          // <-- agregado
+@JsonView(View.Zona.Detalle::class)
+lateinit var candidates: MutableSet<Candidate>
+```
+
+fíjense cómo desaparece una tabla y tenemos la fk `zona_id` en la tabla de Candidatos:
+
+![FK zona_id en Candidate](./images/zona_candidatos.png)
+
+
 - `@OneToMany`, el default es fetch LAZY. Recordemos que LAZY difiere la inicialización de nuestros objetos hasta que lo necesitemos la primera vez. Esto evita la hidratación innecesaria, por ejemplo cuando buscamos las zonas solo para mostrar en el combo los nombres y seleccionarlos mediante un identificador.
 - Para profundizar, tienen [este artículo](https://www.baeldung.com/hibernate-lazy-eager-loading)
 
